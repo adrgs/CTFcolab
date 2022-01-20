@@ -12,3 +12,7 @@ code {
   background-color: #000000;
   border-color: #1861ac;
 }
+
+img {
+  image-rendering: -webkit-optimize-contrast!important;
+}
