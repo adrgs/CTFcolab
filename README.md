@@ -5,4 +5,4 @@
 
 ![.NET](https://github.com/adrgs/CTFcolab/actions/workflows/dotnet.yml/badge.svg)
 
-A collaboration tool for CTF teams
+📝 A collaboration tool for CTF teams 🚩
