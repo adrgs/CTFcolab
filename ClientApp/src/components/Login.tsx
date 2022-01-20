@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Login = () => (
     <div className="flex flex-wrap -mx-4">
@@ -32,6 +33,7 @@ const Login = () => (
                      <input
                         type="text"
                         placeholder="Username / Email"
+                        name="user"
                         className="
                         w-full
                         rounded-md
@@ -52,6 +54,7 @@ const Login = () => (
                      <input
                         type="password"
                         placeholder="Password"
+                        name="password"
                         className="
                         w-full
                         rounded-md
@@ -130,8 +133,8 @@ const Login = () => (
                      </a>
                   </li>
                </ul>
-               <a
-                  href="#"
+               <Link
+                  to="/forgotpassword"
                   className="
                   text-base
                   inline-block
@@ -141,15 +144,15 @@ const Login = () => (
                   "
                   >
                Forgot Password?
-               </a>
+               </Link>
                <p className="text-base text-[#adadad]">
                   Not a member yet?&nbsp;
-                  <a
-                     href="#"
+                  <Link
+                     to="/signup"
                      className="text-primary hover:underline"
                      >
                   Sign Up
-                  </a>
+                  </Link>
                </p>
                <div>
                   <span className="absolute top-1 right-1">
