@@ -9,6 +9,8 @@
     "jquery": "^3.5.1",
     "merge": "1.2.1",
     "popper.js": "^1.16.0",
+    "postcss": "^8.4.5",
+    "postcss-cli": "^9.1.0",
     "react": "16.11.0",
     "react-dom": "16.11.0",
     "react-redux": "7.1.1",
@@ -38,9 +40,13 @@
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.16.0",
     "nan": "^2.14.1",
+    "tailwindcss": "^3.0.15",
     "typescript": "3.6.4"
   },
   "scripts": {
+    "css": "postcss ./src/index.css -o ./src/index.generated.css",
+    "prestart": "npm run css",
+    "prebuild": "npm run css",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
