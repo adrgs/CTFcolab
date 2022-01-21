@@ -1,23 +1,130 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Home = () => (
-  <div>
-    <h1>Hello, world!</h1>
-    <p>Welcome to your new single-page application, built with:</p>
-    <ul>
-      <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
-      <li><a href='https://facebook.github.io/react/'>React</a> and <a href='https://redux.js.org/'>Redux</a> for client-side code</li>
-      <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
-    </ul>
-    <p>To help you get started, we have also set up:</p>
-    <ul>
-      <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-      <li><strong>Development server integration</strong>. In development mode, the development server from <code>create-react-app</code> runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
-      <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration produces minified, efficiently bundled JavaScript files.</li>
-    </ul>
-    <p>The <code>ClientApp</code> subdirectory is a standard React application based on the <code>create-react-app</code> template. If you open a command prompt in that directory, you can run <code>npm</code> commands such as <code>npm test</code> or <code>npm install</code>.</p>
-  </div>
+  <>
+    <div className="flex relative z-20 items-center">
+      <div className="container mx-auto px-6 p-6 flex flex-col justify-between items-center relative py-8 bg-white dark:bg-gray-800 ">
+        <div className="flex flex-col">
+          <h1 className="font-light w-full uppercase text-center text-4xl sm:text-5xl dark:text-white text-gray-800">
+            📝 The collaboration tool for CTF teams 🚩
+          </h1>
+          <h2 className="font-light max-w-2xl mx-auto w-full text-xl dark:text-white text-gray-500 text-center py-8">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis, enim vel fringilla consequat, ligula nunc vulputate dui, nec lobortis metus erat eget diam. Suspendisse in tristique metus, blandit convallis tortor. Nunc mollis luctus ultrices. Nunc bibendum metus magna, quis malesuada orci luctus at. Ut id quam nec elit tempor porta. Cras ultrices id nisi et placerat. Phasellus ac urna et eros imperdiet tristique. Mauris laoreet neque ac erat hendrerit, sit amet vestibulum elit gravida. In gravida placerat ipsum, nec feugiat elit.
+          </h2>
+          <div className="flex items-center justify-center mt-4">
+            <Link to="/login" className="uppercase py-2 px-4 bg-gray-800 border-2 border-transparent text-white text-md mr-4 hover:bg-gray-900">
+              Log in
+            </Link>
+            <Link to="/signup" className="uppercase py-2 px-4 bg-transparent border-2 border-gray-800 text-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">
+              Sign up
+            </Link>
+          </div>
+        </div>
+        <div className="block w-full mx-auto mt-6 relative">
+          <img src="/img/logo-vertical.png" className="max-w-xs md:max-w-l m-auto" />
+        </div>
+      </div>
+    </div>
+    <div className="container mx-auto px-6 p-6 bg-white dark:bg-gray-800">
+      <div className="mb-16 text-center">
+        <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">
+          Features
+        </h2>
+        <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+          A better way to live
+        </p>
+      </div>
+      <div className="flex flex-wrap my-12 dark:text-white">
+        <div className="w-full border-b md:w-1/2 md:border-r lg:w-1/3 p-8">
+          <div className="flex items-center mb-6">
+            <svg width="20" height="20" fill="currentColor" className="h-6 w-6 text-indigo-500" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+              <path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z">
+              </path>
+            </svg>
+            <div className="ml-4 text-xl">
+              Increase sales
+            </div>
+          </div>
+          <p className="leading-loose text-gray-500 dark:text-gray-200 text-md">
+            Receive more sales by selling across multple sales channels instead of just having a single point of entry.
+          </p>
+        </div>
+        <div className="w-full border-b md:w-1/2 lg:w-1/3 lg:border-r p-8">
+          <div className="flex items-center mb-6">
+            <svg width="20" height="20" fill="currentColor" className="h-6 w-6 text-indigo-500" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+              <path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z">
+              </path>
+            </svg>
+            <div className="ml-4 text-xl">
+              Overlays
+            </div>
+          </div>
+          <p className="leading-loose text-gray-500 dark:text-gray-200 text-md">
+            Apply beautiful overlays to every product image distributed through our platform. A visual touch.
+          </p>
+        </div>
+        <div className="w-full border-b md:w-1/2 md:border-r lg:w-1/3 lg:border-r-0 p-8">
+          <div className="flex items-center mb-6">
+            <svg width="20" height="20" fill="currentColor" className="h-6 w-6 text-indigo-500" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+              <path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z">
+              </path>
+            </svg>
+            <div className="ml-4 text-xl">
+              Control
+            </div>
+          </div>
+          <p className="leading-loose text-gray-500 dark:text-gray-200 text-md">
+            Apply filters and control which products to sell on each sales channel. E.g. exclude products with low margins.
+          </p>
+        </div>
+        <div className="w-full border-b md:w-1/2 lg:w-1/3 lg:border-r lg:border-b-0 p-8">
+          <div className="flex items-center mb-6">
+            <svg width="20" height="20" fill="currentColor" className="h-6 w-6 text-indigo-500" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+              <path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z">
+              </path>
+            </svg>
+            <div className="ml-4 text-xl">
+              Mapping
+            </div>
+          </div>
+          <p className="leading-loose text-gray-500 dark:text-gray-200 text-md">
+            Map product categories with each sales channels&#x27; own categories and achieve better results and lower costs.
+          </p>
+        </div>
+        <div className="w-full border-b md:w-1/2 md:border-r md:border-b-0 lg:w-1/3 lg:border-b-0 p-8">
+          <div className="flex items-center mb-6">
+            <svg width="20" height="20" fill="currentColor" className="h-6 w-6 text-indigo-500" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+              <path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z">
+              </path>
+            </svg>
+            <div className="ml-4 text-xl">
+              Fill the missing
+            </div>
+          </div>
+          <p className="leading-loose text-gray-500 dark:text-gray-200 text-md">
+            Modify products with extra properties and achieve the maximum output for each installed sales channel.
+          </p>
+        </div>
+        <div className="w-full md:w-1/2 lg:w-1/3 p-8">
+          <div className="flex items-center mb-6">
+            <svg width="20" height="20" fill="currentColor" className="h-6 w-6 text-indigo-500" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+              <path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z">
+              </path>
+            </svg>
+            <div className="ml-4 text-xl">
+              Dynamic Texts
+            </div>
+          </div>
+          <p className="leading-loose text-gray-500 dark:text-gray-200 text-md">
+            Build unique product titles and descriptions instead of spending days manually editing each product.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </>
 );
 
 export default connect()(Home);

@@ -25,7 +25,7 @@ export default class Layout extends React.PureComponent<{}, { children?: React.R
                                 alignRight={true}
                             />
                         </div>
-                        <div className="flex items-start justify-between">
+                        <div className="flex items-start justify-between overflow-y-auto overflow-x-hidden h-full flex-1">
                             <div className="flex flex-col w-full md:space-y-4 pt-4">
                                 {this.props.children}
                             </div>
