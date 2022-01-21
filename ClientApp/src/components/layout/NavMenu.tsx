@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import Ddm from './misc/DropDownMenu';
-import Toggle from './misc/Toggle';
+import Ddm from '../misc/DropDownMenu';
+import Toggle from '../misc/Toggle';
 
 const usePathname = () => {
     const location = useLocation();

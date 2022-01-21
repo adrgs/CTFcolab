@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Route } from 'react-router';
-import Layout from './components/Layout';
-import Home from './components/Home';
-import Counter from './components/Counter';
-import FetchData from './components/FetchData';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import ForgotPassword from './components/ForgotPassword';
+import Layout from './components/layout/Layout';
+import Home from './components/pages/Home';
+import Counter from './components/pages/Counter';
+import FetchData from './components/pages/FetchData';
+import Login from './components/pages/Login';
+import Signup from './components/pages/Signup';
+import ForgotPassword from './components/pages/ForgotPassword';
 
 import './index.generated.css'
 import './custom.css'
