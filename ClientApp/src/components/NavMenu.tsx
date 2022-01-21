@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Ddm from './misc/DropDownMenu';
+import Toggle from './misc/Toggle';
 
 const usePathname = () => {
     const location = useLocation();
@@ -44,8 +45,25 @@ interface DDMItem {
     link?: string;
 }
 
+
 const NavMenu = (props: Props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const [isDarkMode, setDarkMode] = useState(localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches));
+
+    const changeMode = (isDark: boolean) => {
+        setDarkMode(isDark);
+        if (isDark) {
+            localStorage.theme = 'dark';
+        } else {
+            localStorage.theme = 'light';
+        }
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+          } else {
+            document.documentElement.classList.remove('dark')
+        }
+    };
 
     return (
         <div>
@@ -61,6 +79,8 @@ const NavMenu = (props: Props) => {
                             </Link>
                             <div className="hidden md:block">
                                 <div className="ml-10 flex items-baseline space-x-4">
+                                    <Toggle label="Dark mode" check={isDarkMode} onChange={(mode) => changeMode(mode)} />
+                                    
                                     {props.links.map((link) => {
                                         return (
                                             <Link key={link.label} to={link.link || '#'} className={`${link.isSelected()

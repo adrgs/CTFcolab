@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -32,6 +32,15 @@
     <meta name="msapplication-square150x150logo" content="%PUBLIC_URL%/img/mstile-150x150.png" />
     <meta name="msapplication-wide310x150logo" content="%PUBLIC_URL%/img/mstile-310x150.png" />
     <meta name="msapplication-square310x310logo" content="%PUBLIC_URL%/img/mstile-310x310.png" />
+    <link rel="preload" href="%PUBLIC_URL%/img/logo-vertical.png" as="image">
+
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark')
+        } else {
+          document.documentElement.classList.remove('dark')
+        }
+    </script>
 
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
