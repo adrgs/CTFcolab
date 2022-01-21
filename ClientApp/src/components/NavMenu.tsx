@@ -60,7 +60,7 @@ const NavMenu = (props: Props) => {
         }
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark')
-          } else {
+        } else {
             document.documentElement.classList.remove('dark')
         }
     };
@@ -79,8 +79,6 @@ const NavMenu = (props: Props) => {
                             </Link>
                             <div className="hidden md:block">
                                 <div className="ml-10 flex items-baseline space-x-4">
-                                    <Toggle label="Dark mode" check={isDarkMode} onChange={(mode) => changeMode(mode)} />
-                                    
                                     {props.links.map((link) => {
                                         return (
                                             <Link key={link.label} to={link.link || '#'} className={`${link.isSelected()
@@ -143,6 +141,16 @@ const NavMenu = (props: Props) => {
                                         </svg>
                                     </a>
                                 )}
+                                <div className="ml-3 relative">
+                                    <Ddm
+                                        label='Preferences'
+                                        withBackground={false}
+                                        forceOpen={props.forceDDMOpenInMobile}
+                                        items={[
+                                            {'element':(<Toggle label="Dark mode" check={isDarkMode} onChange={(mode) => changeMode(mode)} />)}
+                                        ]}
+                                    />
+                                </div>
                                 {props.ddmItems && (
                                     <div className="ml-3 relative">
                                         <Ddm
