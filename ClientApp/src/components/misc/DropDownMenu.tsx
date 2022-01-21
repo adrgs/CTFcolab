@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import _uniqueId from 'lodash/uniqueId';
 
 interface Props {
     //boolean to always open ddm (for presentation)
@@ -59,6 +60,7 @@ const DropDownMenu = (props: Props) => {
                         {props.items.map((item) => {
                             if (item.element) return (
                                 <div
+                                key={_uniqueId('ddm-')}
                                 className={`${
                                     item.icon ? 'flex items-center' : 'block'
                                 } block px-4 py-2 text-md text-gray-700 dark:text-gray-100`}
@@ -72,7 +74,7 @@ const DropDownMenu = (props: Props) => {
                             );
                             else return (
                                 <Link
-                                    key={item.label}
+                                    key={_uniqueId('ddm-')}
                                     to={item.link || '#'}
                                     className={`${
                                         item.icon ? 'flex items-center' : 'block'
