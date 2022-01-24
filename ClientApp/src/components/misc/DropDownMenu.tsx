@@ -18,6 +18,7 @@ export interface DDMItem {
     desc?: string;
     link?: string;
     element?: JSX.Element;
+    dontWrap?: boolean;
 }
 
 const DropDownMenu = (props: Props) => {
@@ -28,9 +29,8 @@ const DropDownMenu = (props: Props) => {
                 <button
                     type="button"
                     onClick={() => setIsOpen(!isOpen)}
-                    className={` ${
-                        props.withBackground ? 'border border-gray-300 bg-white dark:bg-gray-800 shadow-sm' : ''
-                    } flex items-center justify-center w-full rounded-md  px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-50 hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500`}
+                    className={` ${props.withBackground ? 'border border-gray-300 bg-white dark:bg-gray-800 shadow-sm' : ''
+                        } flex items-center justify-center w-full rounded-md  px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-50 hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500`}
                     id="options-menu"
                 >
                     {props.label}
@@ -58,27 +58,30 @@ const DropDownMenu = (props: Props) => {
                         aria-labelledby="options-menu"
                     >
                         {props.items.map((item) => {
-                            if (item.element) return (
-                                <div
-                                key={_uniqueId('ddm-')}
-                                className={`${
-                                    item.icon ? 'flex items-center' : 'block'
-                                } block px-4 py-2 text-md text-gray-700 dark:text-gray-100`}
-                                role="menuitem"
-                            >
-                                <span className="flex flex-col">
-                                    <span>{item.element}</span>
-                                    {item.desc && <span className="text-gray-400 text-xs">{item.desc}</span>}
-                                </span>
-                            </div>
-                            );
+                            if (item.element) {
+                                if (item.dontWrap) {
+                                    return item.element;
+                                } else
+                                    return (
+                                        <div
+                                            key={_uniqueId('ddm-')}
+                                            className={`${item.icon ? 'flex items-center' : 'block'
+                                                } block px-4 py-2 text-md text-gray-700 dark:text-gray-100`}
+                                            role="menuitem"
+                                        >
+                                            <span className="flex flex-col">
+                                                <span>{item.element}</span>
+                                                {item.desc && <span className="text-gray-400 text-xs">{item.desc}</span>}
+                                            </span>
+                                        </div>
+                                    );
+                            }
                             else return (
                                 <Link
                                     key={_uniqueId('ddm-')}
                                     to={item.link || '#'}
-                                    className={`${
-                                        item.icon ? 'flex items-center' : 'block'
-                                    } block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600`}
+                                    className={`${item.icon ? 'flex items-center' : 'block'
+                                        } block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600`}
                                     role="menuitem"
                                 >
                                     {item.icon}

@@ -1,0 +1,48 @@
+{
+    "en": {
+        "translation": {
+            "home_page": "Home",
+            "home_title": "📝 The collaboration tool for CTF teams 🚩",
+            "login": "Login",
+            "sign_up": "Sign up",
+            "email_address": "Email address",
+            "features": "Features",
+            "username": "Username",
+            "password": "Password",
+            "connect_with": "Connect with",
+            "not_a_member_yet": "Not a member yet",
+            "forgot_password": "Forgot password",
+            "repeat_password": "Repeat password",
+            "features_subtitle": "A better way to collaborate",
+            "already_have_an_account": "Already have an account",
+            "send_recovery_email": "Send recovery email",
+            "preferences": "Preferences",
+            "english": "English",
+            "romanian": "Romanian",
+            "dark_mode": "Dark mode"
+        }
+    },
+    "ro": {
+        "translation": {
+            "home_page": "Acasă",
+            "home_title": "📝 Tool de colaborare pentru echipele de CTF 🚩",
+            "login": "Autentificare",
+            "sign_up": "Înregistrare",
+            "email_address": "Adresă de email",
+            "features": "Caracteristici",
+            "username": "Nume de utilizator",
+            "password": "Parola",
+            "connect_with": "Autentificare cu",
+            "not_a_member_yet": "Nu ai cont încă",
+            "forgot_password": "Ai uitat parola",
+            "repeat_password": "Repetă parola",
+            "features_subtitle": "Un mod mai bun de a colabora",
+            "already_have_an_account": "Ai deja cont",
+            "send_recovery_email": "Trimite e-mail de resetare a parolei",
+            "preferences": "Preferințe",
+            "english": "Engleză",
+            "romanian": "Română",
+            "dark_mode": "Mod întunecat"
+        }
+    }
+}

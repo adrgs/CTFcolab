@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, MouseEvent, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Ddm from '../misc/DropDownMenu';
 import Toggle from '../misc/Toggle';
+import _uniqueId from 'lodash/uniqueId';
+import i18n from '../../services/i18n';
+import { LanguageContext } from '../../App';
 
 const usePathname = () => {
     const location = useLocation();
@@ -143,11 +146,41 @@ const NavMenu = (props: Props) => {
                                 )}
                                 <div className="ml-3 relative">
                                     <Ddm
-                                        label='Preferences'
+                                        label={i18n.t("preferences").toString()}
                                         withBackground={false}
                                         forceOpen={props.forceDDMOpenInMobile}
                                         items={[
-                                            {'element':(<Toggle label="Dark mode" check={isDarkMode} onChange={(mode) => changeMode(mode)} />)}
+                                            { "element": (<Toggle label={i18n.t("dark_mode").toString()} check={isDarkMode} onChange={(mode) => changeMode(mode)} />) },
+                                            {
+                                                "element": (
+                                                    <LanguageContext.Consumer>
+                                                        {({ language, changeLanguage }) => (
+                                                            <a key={_uniqueId('ddm-')} className="flex items-center block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600" role="menuitem" hrefLang="en" href="#" onClick={changeLanguage}>
+                                                                <img src="/img/en.svg" className="h-4 pr-4" />
+                                                                <span className="flex flex-col">
+                                                                    <span>{i18n.t("english").toString()}</span>
+                                                                </span>
+                                                            </a>
+                                                        )}
+                                                    </LanguageContext.Consumer>
+                                                ),
+                                                "dontWrap": true
+                                            },
+                                            {
+                                                "element": (
+                                                    <LanguageContext.Consumer>
+                                                        {({ language, changeLanguage }) => (
+                                                            <a key={_uniqueId('ddm-')} className="flex items-center block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600" role="menuitem" hrefLang="ro" href="#" onClick={changeLanguage}>
+                                                                <img src="/img/ro.svg" className="h-4 pr-4" />
+                                                                <span className="flex flex-col">
+                                                                    <span>{i18n.t("romanian").toString()}</span>
+                                                                </span>
+                                                            </a>
+                                                        )}
+                                                    </LanguageContext.Consumer>
+                                                ),
+                                                "dontWrap": true
+                                            },
                                         ]}
                                     />
                                 </div>

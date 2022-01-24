@@ -1,6 +1,8 @@
+import { t } from 'i18next';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import i18n from '../../services/i18n';
 
 const Login = () => (
    <div className="flex flex-wrap -mx-4">
@@ -34,7 +36,7 @@ const Login = () => (
                   <div className="mb-6">
                      <input
                         type="text"
-                        placeholder="Username / Email"
+                        placeholder={i18n.t("username").toString() + " / Email"}
                         name="user"
                         className="
                         w-full
@@ -55,7 +57,7 @@ const Login = () => (
                   <div className="mb-6">
                      <input
                         type="password"
-                        placeholder="Password"
+                        placeholder={i18n.t("password").toString()}
                         name="password"
                         className="
                         w-full
@@ -76,7 +78,7 @@ const Login = () => (
                   <div className="mb-10">
                      <input
                         type="submit"
-                        value="Sign In"
+                        value={i18n.t("login").toString()}
                         className="
                         w-full
                         rounded-md
@@ -93,7 +95,7 @@ const Login = () => (
                      />
                   </div>
                </form>
-               <p className="text-base mb-6 text-[#adadad]">Connect With</p>
+               <p className="text-base mb-6 text-[#adadad]">{i18n.t("connect_with").toString()}</p>
                <ul className="flex justify-between -mx-2 mb-12">
                   <li className="w-full">
                      <a
@@ -145,15 +147,15 @@ const Login = () => (
                   hover:underline hover:text-primary
                   "
                >
-                  Forgot Password?
+                  {i18n.t("forgot_password").toString()}?
                </Link>
                <p className="text-base text-[#adadad]">
-                  Not a member yet?&nbsp;
+                  {i18n.t("not_a_member_yet").toString()}?&nbsp;
                   <Link
                      to="/signup"
                      className="text-primary hover:underline"
                   >
-                     Sign Up
+                     {i18n.t("sign_up").toString()}
                   </Link>
                </p>
                <div>

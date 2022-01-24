@@ -1,16 +1,20 @@
 import * as React from 'react';
 import NavMenu, { HeaderLink } from './NavMenu';
-
-const links = [
-    new HeaderLink('Home', '/'),
-    new HeaderLink('Login', '/login'),
-    new HeaderLink('Counter', '/counter'),
-    new HeaderLink('Fetch data', '/fetch-data')
-];
+import { useTranslation } from 'react-i18next';
+import i18n from '../../services/i18n';
 
 export default class Layout extends React.PureComponent<{}, { children?: React.ReactNode }> {
 
     public render() {
+        
+
+        const links = [
+            new HeaderLink(i18n.t('home_page'), '/'),
+            new HeaderLink(i18n.t('login'), '/login'),
+            new HeaderLink('Counter', '/counter'),
+            new HeaderLink('Fetch data', '/fetch-data')
+        ];
+
         return (
             <div className="mx-auto h-full" style={{ minHeight: 85 + 'vh' }}>
                 <div className="relative z-10 bg-white dark:bg-gray-800 overflow-hidden lg:w-full h-full">

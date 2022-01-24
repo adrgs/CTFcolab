@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import i18n from '../../services/i18n';
 
 const Home = () => (
   <>
@@ -8,17 +9,17 @@ const Home = () => (
       <div className="container mx-auto px-6 p-6 flex flex-col justify-between items-center relative py-8 bg-white dark:bg-gray-800 ">
         <div className="flex flex-col">
           <h1 className="font-light w-full uppercase text-center text-4xl sm:text-5xl dark:text-white text-gray-800">
-            📝 The collaboration tool for CTF teams 🚩
+            {i18n.t("home_title")}
           </h1>
           <h2 className="font-light max-w-2xl mx-auto w-full text-xl dark:text-white text-gray-500 text-center py-8">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis, enim vel fringilla consequat, ligula nunc vulputate dui, nec lobortis metus erat eget diam. Suspendisse in tristique metus, blandit convallis tortor. Nunc mollis luctus ultrices. Nunc bibendum metus magna, quis malesuada orci luctus at. Ut id quam nec elit tempor porta. Cras ultrices id nisi et placerat. Phasellus ac urna et eros imperdiet tristique. Mauris laoreet neque ac erat hendrerit, sit amet vestibulum elit gravida. In gravida placerat ipsum, nec feugiat elit.
           </h2>
           <div className="flex items-center justify-center mt-4">
             <Link to="/login" className="uppercase py-2 px-4 bg-gray-800 border-2 border-transparent text-white text-md mr-4 hover:bg-gray-900">
-              Log in
+              {i18n.t("login")}
             </Link>
             <Link to="/signup" className="uppercase py-2 px-4 bg-transparent border-2 border-gray-800 text-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">
-              Sign up
+              {i18n.t("sign_up")}
             </Link>
           </div>
         </div>
@@ -30,10 +31,10 @@ const Home = () => (
     <div className="container mx-auto px-6 p-6 bg-white dark:bg-gray-800">
       <div className="mb-16 text-center">
         <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">
-          Features
+          {i18n.t("features")}
         </h2>
         <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-          A better way to live
+          {i18n.t("features_subtitle")}
         </p>
       </div>
       <div className="flex flex-wrap my-12 dark:text-white">
@@ -44,11 +45,11 @@ const Home = () => (
               </path>
             </svg>
             <div className="ml-4 text-xl">
-              Increase sales
+              Lorem ipsum
             </div>
           </div>
           <p className="leading-loose text-gray-500 dark:text-gray-200 text-md">
-            Receive more sales by selling across multple sales channels instead of just having a single point of entry.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis, enim vel fringilla consequat, ligula nunc vulputate dui, nec lobortis metus erat eget diam.
           </p>
         </div>
         <div className="w-full border-b md:w-1/2 lg:w-1/3 lg:border-r p-8">
@@ -58,11 +59,11 @@ const Home = () => (
               </path>
             </svg>
             <div className="ml-4 text-xl">
-              Overlays
+              Lorem ipsum
             </div>
           </div>
           <p className="leading-loose text-gray-500 dark:text-gray-200 text-md">
-            Apply beautiful overlays to every product image distributed through our platform. A visual touch.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis, enim vel fringilla consequat, ligula nunc vulputate dui, nec lobortis metus erat eget diam.
           </p>
         </div>
         <div className="w-full border-b md:w-1/2 md:border-r lg:w-1/3 lg:border-r-0 p-8">
@@ -72,11 +73,11 @@ const Home = () => (
               </path>
             </svg>
             <div className="ml-4 text-xl">
-              Control
+              Lorem ipsum
             </div>
           </div>
           <p className="leading-loose text-gray-500 dark:text-gray-200 text-md">
-            Apply filters and control which products to sell on each sales channel. E.g. exclude products with low margins.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis, enim vel fringilla consequat, ligula nunc vulputate dui, nec lobortis metus erat eget diam.
           </p>
         </div>
         <div className="w-full border-b md:w-1/2 lg:w-1/3 lg:border-r lg:border-b-0 p-8">
@@ -86,11 +87,11 @@ const Home = () => (
               </path>
             </svg>
             <div className="ml-4 text-xl">
-              Mapping
+              Lorem ipsum
             </div>
           </div>
           <p className="leading-loose text-gray-500 dark:text-gray-200 text-md">
-            Map product categories with each sales channels&#x27; own categories and achieve better results and lower costs.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis, enim vel fringilla consequat, ligula nunc vulputate dui, nec lobortis metus erat eget diam.
           </p>
         </div>
         <div className="w-full border-b md:w-1/2 md:border-r md:border-b-0 lg:w-1/3 lg:border-b-0 p-8">
@@ -100,11 +101,11 @@ const Home = () => (
               </path>
             </svg>
             <div className="ml-4 text-xl">
-              Fill the missing
+              Lorem ipsum
             </div>
           </div>
           <p className="leading-loose text-gray-500 dark:text-gray-200 text-md">
-            Modify products with extra properties and achieve the maximum output for each installed sales channel.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis, enim vel fringilla consequat, ligula nunc vulputate dui, nec lobortis metus erat eget diam.
           </p>
         </div>
         <div className="w-full md:w-1/2 lg:w-1/3 p-8">
@@ -114,11 +115,11 @@ const Home = () => (
               </path>
             </svg>
             <div className="ml-4 text-xl">
-              Dynamic Texts
+              Lorem ipsum
             </div>
           </div>
           <p className="leading-loose text-gray-500 dark:text-gray-200 text-md">
-            Build unique product titles and descriptions instead of spending days manually editing each product.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis, enim vel fringilla consequat, ligula nunc vulputate dui, nec lobortis metus erat eget diam.
           </p>
         </div>
       </div>

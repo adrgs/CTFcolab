@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import i18n from '../../services/i18n';
 
 const Signup = () => (
    <div className="flex flex-wrap -mx-4">
@@ -34,7 +35,7 @@ const Signup = () => (
                   <div className="mb-6">
                      <input
                         type="text"
-                        placeholder="Username"
+                        placeholder={i18n.t("username").toString()}
                         name="username"
                         className="
                         w-full
@@ -55,7 +56,7 @@ const Signup = () => (
                   <div className="mb-6">
                      <input
                         type="text"
-                        placeholder="Email address"
+                        placeholder={i18n.t("email_address").toString()}
                         name="email"
                         className="
                         w-full
@@ -76,7 +77,7 @@ const Signup = () => (
                   <div className="mb-6">
                      <input
                         type="password"
-                        placeholder="Password"
+                        placeholder={i18n.t("password").toString()}
                         name="password"
                         className="
                         w-full
@@ -97,7 +98,7 @@ const Signup = () => (
                   <div className="mb-6">
                      <input
                         type="password"
-                        placeholder="Repeat password"
+                        placeholder={i18n.t("repeat_password").toString()}
                         className="
                         w-full
                         rounded-md
@@ -117,7 +118,7 @@ const Signup = () => (
                   <div className="mb-10">
                      <input
                         type="submit"
-                        value="Sign Up"
+                        value={i18n.t("sign_up").toString()}
                         className="
                         w-full
                         rounded-md
@@ -135,12 +136,12 @@ const Signup = () => (
                   </div>
                </form>
                <p className="text-base text-[#adadad]">
-                  Already have an account?&nbsp;
+                  {i18n.t("already_have_an_account").toString()}?&nbsp;
                   <Link
                      to="/login"
                      className="text-primary hover:underline"
                   >
-                     Login
+                     {i18n.t("login").toString()}
                   </Link>
                </p>
                <div>

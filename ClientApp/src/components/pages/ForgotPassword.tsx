@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import i18n from '../../services/i18n';
 
 const ForgotPassword = () => (
    <div className="flex flex-wrap -mx-4">
@@ -34,7 +35,7 @@ const ForgotPassword = () => (
                   <div className="mb-6">
                      <input
                         type="text"
-                        placeholder="Username"
+                        placeholder={i18n.t("username").toString()}
                         name="username"
                         className="
                         w-full
@@ -55,7 +56,7 @@ const ForgotPassword = () => (
                   <div className="mb-6">
                      <input
                         type="text"
-                        placeholder="Email address"
+                        placeholder={i18n.t("email_address").toString()}
                         name="email"
                         className="
                         w-full
@@ -76,7 +77,7 @@ const ForgotPassword = () => (
                   <div className="mb-10">
                      <input
                         type="submit"
-                        value="Send recovery email"
+                        value={i18n.t("send_recovery_email").toString()}
                         className="
                         w-full
                         rounded-md
@@ -94,22 +95,22 @@ const ForgotPassword = () => (
                   </div>
                </form>
                <p className="text-base text-[#adadad]">
-                  Not a member yet?&nbsp;
+               {i18n.t("not_a_member_yet").toString()}?&nbsp;
                   <Link
                      to="/signup"
                      className="text-primary hover:underline"
                   >
-                     Sign Up
+                     {i18n.t("sign_up").toString()}
                   </Link>
                </p>
                <br></br>
                <p className="text-base text-[#adadad]">
-                  Already have an account?&nbsp;
+               {i18n.t("already_have_an_account").toString()}?&nbsp;
                   <Link
                      to="/login"
                      className="text-primary hover:underline"
                   >
-                     Login
+                     {i18n.t("login").toString()}
                   </Link>
                </p>
                <div>
