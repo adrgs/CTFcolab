@@ -1020,10 +1020,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .custom-scrollbar {
     scrollbar-width: thin;
 }
-  
+
 .custom-scrollbar::-webkit-scrollbar {
-width: 8px;
-height: 8px;
+    width: 8px;
+    height: 8px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
@@ -1031,7 +1031,7 @@ height: 8px;
 }
 
 .custom-scrollbar {
-scrollbar-color: #9ca3af #e5e7eb;
+    scrollbar-color: #9ca3af #e5e7eb;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
@@ -1050,7 +1050,7 @@ scrollbar-color: #9ca3af #e5e7eb;
 }
 
 .dark .dark\:custom-scrollbar {
-scrollbar-color: #374151 #111827;
+    scrollbar-color: #374151 #111827;
 }
 
 .dark .dark\:custom-scrollbar::-webkit-scrollbar-track {

@@ -7,6 +7,7 @@ import FetchData from './components/pages/FetchData';
 import Login from './components/pages/Login';
 import Signup from './components/pages/Signup';
 import ForgotPassword from './components/pages/ForgotPassword';
+import RecoverPassword from './components/pages/RecoverPassword';
 
 import './index.generated.css'
 import './custom.css'
@@ -18,6 +19,7 @@ export default () => (
         <Route path='/login' component={Login} />
         <Route path='/signup' component={Signup} />
         <Route path='/forgotpassword' component={ForgotPassword} />
+        <Route path='/recoverpassword/:userid/:guid' component={RecoverPassword} />
         <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
     </Layout>
 );
