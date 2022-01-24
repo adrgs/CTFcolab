@@ -78,6 +78,7 @@ class RecoverPassword extends React.PureComponent<RouteComponentProps<{ userid: 
                         focus:border-primary
                         "
                      />
+                     <input type="hidden" name="userid" value={this.props.match.params.userid}></input>
                      <input type="hidden" name="guid" value={this.props.match.params.guid}></input>
                   </div>
                   <div className="mb-10">
