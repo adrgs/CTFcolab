@@ -45,29 +45,29 @@ class UserStore {
     @observable updatingUser = false;
     @observable updatingUserErrors: string | undefined;
 
-    constructor()
-    {
+    constructor() {
         makeObservable(this);
     }
-  
+
     @action pullUser() {
-      this.loadingUser = true;
-      return Agent.Auth.current()
-        .then(action((user: any) => { this.currentUser = typeof user == "string" ? decodeToken(user) : user; }))
-        .finally(action(() => { this.loadingUser = false; }))
+        this.loadingUser = true;
+        Agent.Auth.current().then(
+            (user) => {
+                this.currentUser = (user.body as User);
+            }).finally(() => this.loadingUser = false);
     }
-  
+
     @action updateUser(newUser: User) {
-      this.updatingUser = true;
-      return Agent.Auth.save(newUser)
-        .then(action((user: any) => { this.currentUser = typeof user == "string" ? decodeToken(user) : user; }))
-        .finally(action(() => { this.updatingUser = false; }))
+        this.updatingUser = true;
+        return Agent.Auth.save(newUser)
+            .then(action((user: any) => { this.currentUser = typeof user == "string" ? decodeToken(user) : user; }))
+            .finally(action(() => { this.updatingUser = false; }))
     }
-  
+
     @action forgetUser() {
-      this.currentUser = undefined;
+        this.currentUser = undefined;
     }
-  
-  }
-  
-  export default new UserStore();
+
+}
+
+export default new UserStore();

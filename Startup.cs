@@ -41,7 +41,7 @@ namespace CTFcolab
                     ValidateIssuerSigningKey = true,    
                     ValidIssuer = "CTFcolab",    
                     ValidAudience = "CTFcolab",    
-                    IssuerSigningKey = new SymmetricSecurityKey(Environment.GetEnvironmentVariable("JWTOKEN") is not null ? Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWTOKEN")) : Encoding.UTF8.GetBytes("SuperSecretKey"))
+                    IssuerSigningKey = new SymmetricSecurityKey(Environment.GetEnvironmentVariable("JWTOKEN") is not null ? Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWTOKEN")) : Encoding.UTF8.GetBytes("SuperSecretKey12345678"))
                 };    
             });    
 

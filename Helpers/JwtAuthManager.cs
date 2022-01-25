@@ -17,7 +17,7 @@ namespace CTFcolab.Helpers
     {
         public static string GenerateJSONWebToken(User user)
         {
-            var _secret = Environment.GetEnvironmentVariable("JWTOKEN") is not null ? Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWTOKEN")) : Encoding.UTF8.GetBytes("SuperSecretKey");
+            var _secret = Environment.GetEnvironmentVariable("JWTOKEN") is not null ? Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWTOKEN")) : Encoding.UTF8.GetBytes("SuperSecretKey12345678");
             var securityKey = new SymmetricSecurityKey(_secret);
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 

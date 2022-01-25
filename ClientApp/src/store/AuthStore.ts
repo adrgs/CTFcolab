@@ -40,18 +40,14 @@ class AuthStore {
         this.errors = undefined;
         Agent.Auth.login(this.values.username, this.values.password).then(
             (result) => {
-                console.log(result);
-                if (typeof result == "string") {
-                    CommonStore.setToken(result);
+                try {
+                    CommonStore.setToken(JSON.parse(result.text));
                     UserStore.pullUser();
                 }
-                else if (typeof result == "object") {
-                    CommonStore.setToken((result as any).token);
-                    UserStore.pullUser();
-                } else {
-                    let err = result as Error;
-                    this.errors = err.response && err.response.body && err.response.body.errors;
+                catch {
+                    this.errors = "Server error";
                 }
+                
                 this.inProgress = false;
             }
         ).catch((err) => {

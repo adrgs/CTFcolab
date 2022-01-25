@@ -78,7 +78,7 @@ namespace CTFcolab.Controllers
                     return Bad("Invalid credentials");
                 }
             }
-            if (BCrypt.Net.BCrypt.Verify(password, user.Password) == true)
+            if (BCrypt.Net.BCrypt.Verify(password, userDb.Password) == true)
             {
                 return Okay(JwtAuthManager.GenerateJSONWebToken(userDb));
             }
@@ -116,6 +116,7 @@ namespace CTFcolab.Controllers
                         user.Role = "User";
                     }
                     _userRepository.UpdateUser(user);
+                    _userRepository.Save();
                     return Okay(user);
                 }
                 var message = string.Join(" | ", ModelState.Values
