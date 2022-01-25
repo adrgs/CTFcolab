@@ -8,6 +8,8 @@ namespace CTFcolab.DAL
     {  
         IEnumerable<User> GetUsers();  
         User GetUserByID(int UserId);  
+        User GetUserByEmail(string email);  
+        User GetUserByName(string username);  
         void InsertUser(User user);  
         void DeleteUser(int UserID);  
         void UpdateUser(User user);  

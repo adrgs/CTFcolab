@@ -22,6 +22,7 @@ namespace CTFcolab
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSwaggerGen();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -36,6 +37,8 @@ namespace CTFcolab
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
             else
             {
@@ -55,6 +58,12 @@ namespace CTFcolab
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "/api/{controller}/{action=Index}/{id?}");
+            });
+
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                options.RoutePrefix = "/swagger";
             });
 
             app.UseSpa(spa =>

@@ -29,5 +29,32 @@ namespace CTFcolab.Controllers
             var users = from user in _userRepository.GetUsers() select user;
             return users;
         }
+
+        [HttpPost]
+        public ActionResult Post(User user)
+        {
+            if (_userRepository.GetUserByName(user.Name) is not null)
+            {
+                return BadRequest("Username is already taken");
+            }
+            if (_userRepository.GetUserByEmail(user.Email) is not null)
+            {
+                return BadRequest("Email is already taken");
+            }
+            try {
+                if (ModelState.IsValid) {
+                    _userRepository.InsertUser(user);
+                    _userRepository.Save();
+                    return Ok(user);
+                }
+                var message = string.Join(" | ", ModelState.Values
+                                    .SelectMany(v => v.Errors)
+                                    .Select(e => e.ErrorMessage));
+                return BadRequest(message);
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
     }
 }
