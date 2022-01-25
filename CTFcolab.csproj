@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.11" />
     <PackageReference Include="SQLite.CodeFirst" Version="1.7.0.34" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />

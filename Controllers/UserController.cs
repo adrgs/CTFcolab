@@ -41,6 +41,10 @@ namespace CTFcolab.Controllers
             {
                 return BadRequest("Email is already taken");
             }
+            if (user.Password == null) {
+                return BadRequest("Password can't be null");
+            }
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             try {
                 if (ModelState.IsValid) {
                     _userRepository.InsertUser(user);
