@@ -5,7 +5,7 @@ import CommonStore from './CommonStore';
 
 class AuthStore {
     @observable inProgress: boolean = false;
-    @observable errors: string[] | undefined = undefined;
+    @observable errors: string | undefined = undefined;
 
     @observable values = {
         username: '',
@@ -38,16 +38,16 @@ class AuthStore {
     @action login() {
         this.inProgress = true;
         this.errors = undefined;
-        Agent.Auth.login(this.values.email, this.values.password).then(
+        Agent.Auth.login(this.values.username, this.values.password).then(
             (result) => {
                 console.log(result);
                 if (typeof result == "string") {
                     CommonStore.setToken(result);
-                    //UserStore.pullUser();
+                    UserStore.pullUser();
                 }
                 else if (typeof result == "object") {
                     CommonStore.setToken((result as any).token);
-                    //UserStore.pullUser();
+                    UserStore.pullUser();
                 } else {
                     let err = result as Error;
                     this.errors = err.response && err.response.body && err.response.body.errors;
@@ -56,8 +56,34 @@ class AuthStore {
             }
         ).catch((err) => {
             if (err.status == 404) {
-                this.errors = ["404 API not found"];
+                this.errors = "404 API not found";
             }
+            if (err.status == 401) {
+                this.reset();
+            }
+            function objToString(obj: any) {
+                var str = '';
+                for (var p in obj) {
+                    if (Object.prototype.hasOwnProperty.call(obj, p)) {
+                        str += obj[p] + '\n';
+                    }
+                }
+                return str;
+            }
+
+            if (err.message) {
+                var obj = JSON.parse(err.message);
+                if (typeof obj == "string") {
+                    this.errors = obj;
+                } else {
+                    if (obj && obj.errors) {
+                        this.errors = objToString(obj.errors);
+                    } else {
+                        this.errors = objToString(obj);
+                    }
+                }
+            }
+            this.inProgress = false;
         });
     }
 

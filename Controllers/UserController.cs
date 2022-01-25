@@ -6,15 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CTFcolab.DAL;
 using CTFcolab.Entity;
+using System.Text;
+using Newtonsoft.Json;
+using CTFcolab.Helpers;
+using CTFcolab.Authorization;
 
 namespace CTFcolab.Controllers
 {
     [ApiController]
-    [Route("/api/[controller]")]
+    [Authorize]
+    [Route("/api/[controller]/[action]")]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
-        private IUserRepository _userRepository;  
+        private IUserRepository _userRepository;
 
         public UserController(ILogger<UserController> logger)
         {
@@ -24,40 +29,103 @@ namespace CTFcolab.Controllers
 
 
         [HttpGet]
-        public IEnumerable<User> Get()
+        [ActionName("self")]
+        public User GetSelf()
+        {
+            var user = (User)HttpContext.Items["User"];
+            return user;
+        }
+
+        [HttpGet]
+        [ActionName("all")]
+        public IEnumerable<User> GetAll()
         {
             var users = from user in _userRepository.GetUsers() select user;
             return users;
         }
 
+        private ActionResult Bad(object data)
+        {
+            return BadRequest(JsonConvert.SerializeObject(data));
+        }
+
+        private ActionResult Okay(object data)
+        {
+            return Ok(JsonConvert.SerializeObject(data));
+        }
+
         [HttpPost]
-        public ActionResult Post(User user)
+        [AllowAnonymous]
+        [ActionName("login")]
+        public ActionResult Login(User user)
+        {
+            string username = user.Name;
+            string password = user.Password;
+            if (username == null || username.Length == 0)
+            {
+                return Bad("Username cannot be empty");
+            }
+            if (password == null || password.Length == 0)
+            {
+                return Bad("Password cannot be empty");
+            }
+            User userDb = _userRepository.GetUserByName(username);
+            if (userDb == null)
+            {
+                userDb = _userRepository.GetUserByEmail(username);
+                if (userDb == null)
+                {
+                    return Bad("Invalid credentials");
+                }
+            }
+            if (BCrypt.Net.BCrypt.Verify(password, user.Password) == true)
+            {
+                return Okay(JwtAuthManager.GenerateJSONWebToken(userDb));
+            }
+            return Bad("Invalid credentials");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ActionName("signup")]
+        public ActionResult Signup(User user)
         {
             if (_userRepository.GetUserByName(user.Name) is not null)
             {
-                return BadRequest("Username is already taken");
+                return Bad("Username is already taken");
             }
             if (_userRepository.GetUserByEmail(user.Email) is not null)
             {
-                return BadRequest("Email is already taken");
+                return Bad("Email is already taken");
             }
-            if (user.Password == null) {
-                return BadRequest("Password can't be null");
+            if (user.Password == null)
+            {
+                return Bad("Password can't be null");
             }
+            user.Role = "";
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-            try {
-                if (ModelState.IsValid) {
+            try
+            {
+                if (ModelState.IsValid)
+                {
                     _userRepository.InsertUser(user);
                     _userRepository.Save();
-                    return Ok(user);
+                    if (user.Id == 1) {
+                        user.Role = "Admin";
+                    } else {
+                        user.Role = "User";
+                    }
+                    _userRepository.UpdateUser(user);
+                    return Okay(user);
                 }
                 var message = string.Join(" | ", ModelState.Values
                                     .SelectMany(v => v.Errors)
                                     .Select(e => e.ErrorMessage));
-                return BadRequest(message);
-            } catch (Exception ex)
+                return Bad(message);
+            }
+            catch (Exception ex)
             {
-                return BadRequest(ex.ToString());
+                return Bad(ex.ToString());
             }
         }
     }

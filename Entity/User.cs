@@ -11,18 +11,19 @@ namespace CTFcolab.Entity
 
         [MaxLength(30)]
         [MinLength(1)]
-        [Required]
         [Index(IsUnique=true)]
         public string Name { get; set; }
 
         [MaxLength(100)]
-        [Required]
+        [Index(IsUnique=true)]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
 
         [MaxLength(100)]
-        [Required]
         public string Password { get; set; }
+
+        [MaxLength(100)]
+        public string Role { get; set; }
 
     }
 }

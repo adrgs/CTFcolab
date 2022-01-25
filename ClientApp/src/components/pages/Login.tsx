@@ -106,6 +106,9 @@ export default class Login extends React.Component<any> {
                         "
                            />
                         </div>
+                        <h2 className={'text-[#ED4A50] pb-4 ' + (errors ? 'visible' : 'invisible')}>
+                        Error: {errors}
+                        </h2>
                         <div className="mb-10">
                            <input
                               type="submit"

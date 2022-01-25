@@ -461,6 +461,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   white-space: nowrap !important;
   border-width: 0 !important;
 }
+.visible {
+  visibility: visible !important;
+}
+.invisible {
+  visibility: hidden !important;
+}
 .absolute {
   position: absolute !important;
 }
@@ -831,6 +837,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .pb-3 {
   padding-bottom: 0.75rem !important;
 }
+.pb-4 {
+  padding-bottom: 1rem !important;
+}
 .text-left {
   text-align: left !important;
 }
@@ -934,6 +943,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-indigo-500 {
   --tw-text-opacity: 1 !important;
   color: rgb(99 102 241 / var(--tw-text-opacity)) !important;
+}
+.text-\[\#ED4A50\] {
+  --tw-text-opacity: 1 !important;
+  color: rgb(237 74 80 / var(--tw-text-opacity)) !important;
 }
 .placeholder-\[\#ACB6BE\]::-webkit-input-placeholder {
   --tw-placeholder-opacity: 1 !important;
