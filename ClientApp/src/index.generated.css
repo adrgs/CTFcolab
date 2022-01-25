@@ -509,14 +509,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: 3rem !important;
   margin-bottom: 3rem !important;
 }
-.-mx-2 {
-  margin-left: -0.5rem !important;
-  margin-right: -0.5rem !important;
-}
-.mx-12 {
-  margin-left: 3rem !important;
-  margin-right: 3rem !important;
-}
 .ml-10 {
   margin-left: 2.5rem !important;
 }
@@ -552,9 +544,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .mb-16 {
   margin-bottom: 4rem !important;
-}
-.mb-12 {
-  margin-bottom: 3rem !important;
 }
 .mb-2 {
   margin-bottom: 0.5rem !important;
@@ -594,9 +583,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .h-6 {
   height: 1.5rem !important;
-}
-.h-11 {
-  height: 2.75rem !important;
 }
 .w-full {
   width: 100% !important;
@@ -771,10 +757,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .bg-transparent {
   background-color: transparent !important;
-}
-.bg-\[\#5865F2\] {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(88 101 242 / var(--tw-bg-opacity)) !important;
 }
 .p-1 {
   padding: 0.25rem !important;
@@ -1001,6 +983,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .ring-opacity-5 {
   --tw-ring-opacity: 0.05 !important;
+}
+.filter {
+  -webkit-filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow) !important;
+          filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow) !important;
 }
 .transition {
   transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, -webkit-text-decoration-color, -webkit-transform, -webkit-filter, -webkit-backdrop-filter !important;
