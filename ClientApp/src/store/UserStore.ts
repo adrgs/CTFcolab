@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, makeObservable } from 'mobx';
 import Agent from '../Agent';
 
 export interface User {
@@ -44,18 +44,23 @@ class UserStore {
     @observable loadingUser = false;
     @observable updatingUser = false;
     @observable updatingUserErrors: string | undefined;
+
+    constructor()
+    {
+        makeObservable(this);
+    }
   
     @action pullUser() {
       this.loadingUser = true;
       return Agent.Auth.current()
-        .then(action((user: string | {token?:string}) => { this.currentUser = typeof user == "string" ? decodeToken(user) : user; }))
+        .then(action((user: any) => { this.currentUser = typeof user == "string" ? decodeToken(user) : user; }))
         .finally(action(() => { this.loadingUser = false; }))
     }
   
     @action updateUser(newUser: User) {
       this.updatingUser = true;
       return Agent.Auth.save(newUser)
-        .then(action((user: string | {token?:string}) => { this.currentUser = typeof user == "string" ? decodeToken(user) : user; }))
+        .then(action((user: any) => { this.currentUser = typeof user == "string" ? decodeToken(user) : user; }))
         .finally(action(() => { this.updatingUser = false; }))
     }
   

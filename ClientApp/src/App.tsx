@@ -8,6 +8,7 @@ import Signup from './components/pages/Signup';
 import ForgotPassword from './components/pages/ForgotPassword';
 import RecoverPassword from './components/pages/RecoverPassword';
 import NotFound from './components/pages/NotFound';
+import { inject, observer } from "mobx-react";
 
 import './index.generated.css'
 import './custom.css'
@@ -18,6 +19,8 @@ export const LanguageContext = React.createContext({
     changeLanguage: function(event: MouseEvent<HTMLAnchorElement>){}
 });
 
+@inject("UserStore", "CommonStore")
+@observer
 export class App extends React.Component<{}, { language: string, changeLanguage: (event: MouseEvent<HTMLAnchorElement>) => void }>  {
     constructor(props:{}) {
         super(props);

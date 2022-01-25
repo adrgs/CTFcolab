@@ -10,9 +10,10 @@ const API_ROOT = '/api';
 
 type Response = {
     response?: {
-        status: number
+        status: number;
     }
-    body: {} | string
+    body?: {} | string;
+    ok?: boolean;
 }
 
 const handleErrors = (err: Response) => {
@@ -22,7 +23,19 @@ const handleErrors = (err: Response) => {
   return err;
 };
 
-const responseBody = (res: Response) => res.body;
+type Error = {
+  response?: { body?: { } };
+  message?: string | undefined;
+}
+
+const responseBody = (res: Response) => {
+  if (res && !res.ok) {
+        const err: Error = new Error("Not 2xx response");
+        err.response = res;
+        return err;
+  }
+  return res.body;
+};
 
 const tokenPlugin = (req:superagent.SuperAgentRequest) => {
   if (CommonStore.token) {
@@ -34,7 +47,7 @@ const requests = {
   del: (url: string) =>
     superagent
       .del(`${API_ROOT}${url}`)
-      .use(tokenPlugin).then()
+      .use(tokenPlugin)
       .catch(handleErrors)
       .then(responseBody),
   get: (url: string) =>
@@ -57,8 +70,6 @@ const requests = {
       .set('Content-Type', 'application/json')
       .use(tokenPlugin)
       .send(body)
-      .catch(handleErrors)
-      .then(responseBody),
 };
 
 const Auth = {

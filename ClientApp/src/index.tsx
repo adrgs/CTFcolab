@@ -4,14 +4,26 @@ import { createBrowserHistory } from 'history';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { Router } from 'react-router-dom';
+import { Provider } from 'mobx-react';
+import AuthStore from './store/AuthStore';
+import CommonStore from './store/CommonStore';
+import UserStore from './store/UserStore';
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href') as string;
 const history = createBrowserHistory({ basename: baseUrl });
 
+const stores = {
+    AuthStore,
+    CommonStore,
+    UserStore
+};
+
 ReactDOM.render(
-    <Router history={history}>
-        <App />
-    </Router>,
+    <Provider {...stores}>
+        <Router history={history}>
+            <App />
+        </Router>
+    </Provider>,
     document.getElementById('root'));
 
 registerServiceWorker();
