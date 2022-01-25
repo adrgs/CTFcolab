@@ -10,9 +10,7 @@ export default class Layout extends React.PureComponent<{}, { children?: React.R
 
         const links = [
             new HeaderLink(i18n.t('home_page'), '/'),
-            new HeaderLink(i18n.t('login'), '/login'),
-            new HeaderLink('Counter', '/counter'),
-            new HeaderLink('Fetch data', '/fetch-data')
+            new HeaderLink(i18n.t('login'), '/login')
         ];
 
         return (

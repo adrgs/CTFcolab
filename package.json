@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "mobx": "^6.3.13",
     "postcss": "^8.4.5",
     "postcss-cli": "^9.1.0",
     "react-scripts": "^5.0.0"

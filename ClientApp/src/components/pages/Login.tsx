@@ -1,6 +1,5 @@
 import { t } from 'i18next';
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import i18n from '../../services/i18n';
 
@@ -368,4 +367,4 @@ const Login = () => (
    </div>
 );
 
-export default connect()(Login);
+export default Login;

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import i18n from '../../services/i18n';
 
@@ -396,4 +395,4 @@ const Signup = () => (
    </div>
 );
 
-export default connect()(Signup);
+export default Signup;

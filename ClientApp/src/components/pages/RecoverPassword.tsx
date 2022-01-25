@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
 
 class RecoverPassword extends React.PureComponent<RouteComponentProps<{ userid: string, guid: string }>> {
@@ -354,4 +352,4 @@ class RecoverPassword extends React.PureComponent<RouteComponentProps<{ userid: 
    }
 }
 
-export default connect()(RecoverPassword);
+export default RecoverPassword;
