@@ -10,6 +10,7 @@
     "jquery": "^3.5.1",
     "lodash": "^4.17.21",
     "merge": "1.2.1",
+    "mobx": "^6.3.13",
     "popper.js": "^1.16.0",
     "postcss": "^8.4.5",
     "postcss-cli": "^9.1.0",
@@ -18,6 +19,8 @@
     "react-router": "5.1.2",
     "react-router-dom": "5.1.2",
     "react-scripts": "^3.4.4",
+    "superagent": "^7.1.1",
+    "superagent-promise": "^1.1.0",
     "svgo": "1.3.0"
   },
   "devDependencies": {
@@ -30,6 +33,7 @@
     "@types/react-router": "5.1.2",
     "@types/react-router-dom": "5.1.0",
     "@types/reactstrap": "8.0.6",
+    "@types/superagent": "^4.1.14",
     "@typescript-eslint/parser": "^2.5.0",
     "cross-env": "6.0.3",
     "eslint": "^6.5.1",

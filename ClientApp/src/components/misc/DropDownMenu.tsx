@@ -64,7 +64,6 @@ const DropDownMenu = (props: Props) => {
                                 } else
                                     return (
                                         <div
-                                            key={_uniqueId('ddm-')}
                                             className={`${item.icon ? 'flex items-center' : 'block'
                                                 } block px-4 py-2 text-md text-gray-700 dark:text-gray-100`}
                                             role="menuitem"

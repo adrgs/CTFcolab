@@ -15,11 +15,11 @@ import i18n from './services/i18n';
 
 export const LanguageContext = React.createContext({
     language: i18n.language,
-    changeLanguage: () => {}
+    changeLanguage: function(event: MouseEvent<HTMLAnchorElement>){}
 });
 
-export class App extends React.Component<{}, { language: string, changeLanguage: any }>  {
-    constructor(props:any) {
+export class App extends React.Component<{}, { language: string, changeLanguage: (event: MouseEvent<HTMLAnchorElement>) => void }>  {
+    constructor(props:{}) {
         super(props);
 
         const changeLanguage = (event: MouseEvent<HTMLAnchorElement>) => {

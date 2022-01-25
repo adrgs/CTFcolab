@@ -84,7 +84,7 @@ const NavMenu = (props: Props) => {
                                 <div className="ml-10 flex items-baseline space-x-4">
                                     {props.links.map((link) => {
                                         return (
-                                            <Link key={link.label} to={link.link || '#'} className={`${link.isSelected()
+                                            <Link key={_uniqueId('nav-')} to={link.link || '#'} className={`${link.isSelected()
                                                 ? 'text-gray-800 dark:text-white'
                                                 : 'text-gray-300'
                                                 }  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md ${props.isFat ? 'text-md' : 'text-sm'
@@ -150,12 +150,12 @@ const NavMenu = (props: Props) => {
                                         withBackground={false}
                                         forceOpen={props.forceDDMOpenInMobile}
                                         items={[
-                                            { "element": (<Toggle label={i18n.t("dark_mode").toString()} check={isDarkMode} onChange={(mode) => changeMode(mode)} />) },
+                                            { "element": (<Toggle key={_uniqueId('nav-')} label={i18n.t("dark_mode").toString()} check={isDarkMode} onChange={(mode) => changeMode(mode)} />) },
                                             {
                                                 "element": (
-                                                    <LanguageContext.Consumer>
+                                                    <LanguageContext.Consumer key={_uniqueId('nav-')}>
                                                         {({ language, changeLanguage }) => (
-                                                            <a key={_uniqueId('ddm-')} className="flex items-center px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600" role="menuitem" hrefLang="en" href="#" onClick={changeLanguage}>
+                                                            <a key={_uniqueId('nav-')} className="flex items-center px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600" role="menuitem" hrefLang="en" href="#" onClick={changeLanguage}>
                                                                 <img src="/img/en.svg" className="h-4 pr-4" />
                                                                 <span className="flex flex-col">
                                                                     <span>{i18n.t("english").toString()}</span>
@@ -168,9 +168,9 @@ const NavMenu = (props: Props) => {
                                             },
                                             {
                                                 "element": (
-                                                    <LanguageContext.Consumer>
+                                                    <LanguageContext.Consumer key={_uniqueId('nav-')}>
                                                         {({ language, changeLanguage }) => (
-                                                            <a key={_uniqueId('ddm-')} className="flex items-center px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600" role="menuitem" hrefLang="ro" href="#" onClick={changeLanguage}>
+                                                            <a className="flex items-center px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600" role="menuitem" hrefLang="ro" href="#" onClick={changeLanguage}>
                                                                 <img src="/img/ro.svg" className="h-4 pr-4" />
                                                                 <span className="flex flex-col">
                                                                     <span>{i18n.t("romanian").toString()}</span>
@@ -235,7 +235,7 @@ const NavMenu = (props: Props) => {
                         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                             {props.links.map((link) => {
                                 return (
-                                    <Link key={link.label} to={link.link || '#'} className={`${link.isSelected()
+                                    <Link key={_uniqueId('nav-')} to={link.link || '#'} className={`${link.isSelected()
                                         ? 'text-gray-800 dark:text-white'
                                         : 'text-gray-300 hover:text-gray-800 dark:hover:text-white'
                                         } block px-3 py-2 rounded-md text-base font-medium`}>
