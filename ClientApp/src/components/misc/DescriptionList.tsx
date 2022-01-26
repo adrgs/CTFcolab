@@ -7,7 +7,7 @@ interface Props {
 
 const DescriptionList = (props: Props) => {
     return (
-        <div className="bg-white dark:bg-gray-900 max-w-2xl shadow overflow-hidden sm:rounded-lg">
+        <div className="bg-white dark:bg-gray-900 max-w-2xl shadow overflow-hidden sm:rounded-lg mb-6">
             <div className="border-t border-gray-200 dark:border-black">
                 <dl>
                     <div key={_uniqueId('dl-')} className="bg-gray-50 dark:bg-gray-900 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

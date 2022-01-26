@@ -530,6 +530,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .-mr-2 {
   margin-right: -0.5rem !important;
 }
+.mb-6 {
+  margin-bottom: 1.5rem !important;
+}
 .mt-1 {
   margin-top: 0.25rem !important;
 }
@@ -538,9 +541,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .mb-10 {
   margin-bottom: 2.5rem !important;
-}
-.mb-6 {
-  margin-bottom: 1.5rem !important;
 }
 .mt-4 {
   margin-top: 1rem !important;
@@ -1179,9 +1179,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
 }
 
-.dark .dark\:border-gray-900 {
+.dark .dark\:border-black {
   --tw-border-opacity: 1 !important;
-  border-color: rgb(17 24 39 / var(--tw-border-opacity)) !important;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity)) !important;
 }
 
 .dark .dark\:bg-gray-800 {

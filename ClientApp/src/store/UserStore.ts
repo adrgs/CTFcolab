@@ -71,7 +71,7 @@ class UserStore {
 
     @action getUsers() {
         this.allUsers = [];
-        Agent.Auth.current().then(
+        Agent.requests.get('/user/all').then(
             (user) => {
                 this.allUsers = (user.body as []);
             });

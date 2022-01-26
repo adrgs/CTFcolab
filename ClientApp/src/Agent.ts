@@ -50,4 +50,5 @@ const Auth = {
 
 export default {
   Auth,
+  requests
 };
