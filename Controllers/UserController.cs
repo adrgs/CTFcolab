@@ -15,7 +15,7 @@ namespace CTFcolab.Controllers
 {
     [ApiController]
     [Authorize]
-    [Route("/api/[controller]/[action]")]
+    [Route("/api/[controller]/[action]/{id?}")]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
@@ -42,6 +42,39 @@ namespace CTFcolab.Controllers
         {
             var users = from user in _userRepository.GetUsers() select user;
             return users;
+        }
+
+        [HttpGet]
+        [ActionName("id")]
+        public User GetId(int id)
+        {
+            var user = _userRepository.GetUserByID(id);
+            return user;
+        }
+
+        [HttpPut]
+        [HttpPatch]
+        [ActionName("id")]
+        public User UpdateId(int id, User user)
+        {
+            try {
+                _userRepository.UpdateUser(user);
+                _userRepository.Save();
+                return user;
+            } catch {}
+            return null;
+        }
+
+        [HttpDelete]
+        [ActionName("id")]
+        public ActionResult DeleteId(int id)
+        {
+            try {
+                _userRepository.DeleteUser(id);
+                _userRepository.Save();
+                return Okay("User deleted");
+            } catch {}
+            return Bad("Couldn't delete user");
         }
 
         private ActionResult Bad(object data)
