@@ -1,5 +1,6 @@
 import { observable, action, makeObservable } from 'mobx';
 import Agent from '../Agent';
+import CommonStore from './CommonStore';
 
 export interface User {
     id: number;
@@ -45,6 +46,7 @@ class UserStore {
     @observable loadingUser = false;
     @observable updatingUser = false;
     @observable updatingUserErrors: string | undefined;
+    @observable allUsers = [];
 
     constructor() {
         makeObservable(this);
@@ -55,6 +57,8 @@ class UserStore {
         Agent.Auth.current().then(
             (user) => {
                 this.currentUser = (user.body as User);
+            }).catch(() => {
+                CommonStore.setToken(undefined);
             }).finally(() => this.loadingUser = false);
     }
 
@@ -63,6 +67,14 @@ class UserStore {
         return Agent.Auth.save(newUser)
             .then(action((user: any) => { this.currentUser = typeof user == "string" ? decodeToken(user) : user; }))
             .finally(action(() => { this.updatingUser = false; }))
+    }
+
+    @action getUsers() {
+        this.allUsers = [];
+        Agent.Auth.current().then(
+            (user) => {
+                this.allUsers = (user.body as []);
+            });
     }
 
     @action forgetUser() {

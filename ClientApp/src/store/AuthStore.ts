@@ -28,7 +28,7 @@ class AuthStore {
     }
 
     @action isAuthenticated() {
-        return CommonStore.token != undefined;
+        return !!UserStore.currentUser;
     }
 
     @action isAuthorized(role: string) {
@@ -155,7 +155,6 @@ class AuthStore {
     }
 
     @action logout() {
-        console.log("Logout!");
         CommonStore.setToken(undefined);
         UserStore.forgetUser();
         this.IsAuthenticated = !this.IsAuthenticated;

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../../services/i18n';
 import { inject, observer } from 'mobx-react';
 
-@inject("AuthStore")
+@inject("AuthStore", "UserStore")
 @observer
 export default class Layout extends React.PureComponent<any, { children?: React.ReactNode }> {
 
@@ -23,7 +23,13 @@ export default class Layout extends React.PureComponent<any, { children?: React.
                 ]
             );
         } else {
+            if (this.props.UserStore.currentUser && this.props.AuthStore.isAuthorized('Admin')) {
+                links = links.concat([
+                    new HeaderLink(i18n.t('users'), '/users'),
+                ]);
+            }
             links = links.concat([
+                new HeaderLink(i18n.t('profile'), '/profile'),
                 new HeaderLink(i18n.t('logout'), '/logout'),
             ]);
         }

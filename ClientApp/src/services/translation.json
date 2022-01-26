@@ -20,7 +20,9 @@
             "preferences": "Preferences",
             "english": "English",
             "romanian": "Romanian",
-            "dark_mode": "Dark mode"
+            "dark_mode": "Dark mode",
+            "users": "Users",
+            "profile": "Profile"
         }
     },
     "ro": {
@@ -44,7 +46,9 @@
             "preferences": "Preferințe",
             "english": "Engleză",
             "romanian": "Română",
-            "dark_mode": "Mod întunecat"
+            "dark_mode": "Mod întunecat",
+            "users": "Utilizatori",
+            "profile": "Profil"
         }
     }
 }

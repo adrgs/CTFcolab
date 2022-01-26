@@ -14,17 +14,21 @@ import { inject, observer } from "mobx-react";
 import './index.generated.css'
 import './custom.css'
 import i18n from './services/i18n';
+import Users from './components/pages/User/Users';
+import Profile from './components/pages/User/Profile';
 
 export const LanguageContext = React.createContext({
     language: i18n.language,
     changeLanguage: function(event: MouseEvent<HTMLAnchorElement>){}
 });
 
-@inject("AuthStore")
+@inject("AuthStore", "UserStore")
 @observer
 export class App extends React.Component<any, { language: string, changeLanguage: (event: MouseEvent<HTMLAnchorElement>) => void }>  {
     constructor(props: any) {
         super(props);
+
+        this.props.UserStore.pullUser();
 
         const changeLanguage = (event: MouseEvent<HTMLAnchorElement>) => {
             event.preventDefault();
@@ -59,7 +63,7 @@ export class App extends React.Component<any, { language: string, changeLanguage
     }
 
     AuthorizedRoute(role:string, path: string, component: any, to: string) {
-        if (this.props.AuthStore.IsAuthenticated && this.props.AuthStore.isAuthorized(role)) {
+        if (this.props.UserStore.currentUser && this.props.AuthStore.IsAuthenticated && this.props.AuthStore.isAuthorized(role)) {
             return (
                 <Route path={path} component={component} />
             );
@@ -95,6 +99,9 @@ export class App extends React.Component<any, { language: string, changeLanguage
                         {this.UnauthenticatedRoute('/forgotpassword', ForgotPassword, '/')}
                         {this.UnauthenticatedRoute('/recoverpassword/:userid/:guid', RecoverPassword, '/')}
                         {this.AuthenticatedRoute('/logout', Logout, '/')}
+                        
+                        {this.AuthorizedRoute('Admin', '/users', Users, '/login')}
+                        {this.AuthenticatedRoute('/profile', Profile, '/login')}
                         <Route component={NotFound} />
                     </Switch>
                 </Layout>

@@ -1,4 +1,5 @@
 import { observable, action, reaction, makeObservable } from 'mobx';
+import UserStore from './UserStore';
 
 class CommonStore {
 
@@ -15,6 +16,7 @@ class CommonStore {
         token => {
           if (token) {
             window.localStorage.setItem('jwt', token);
+            UserStore.pullUser();
           } else {
             window.localStorage.removeItem('jwt');
           }
