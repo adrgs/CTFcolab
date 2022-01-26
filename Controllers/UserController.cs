@@ -38,6 +38,7 @@ namespace CTFcolab.Controllers
 
         [HttpGet]
         [ActionName("all")]
+        [Authorize("Admin")]
         public IEnumerable<User> GetAll()
         {
             var users = from user in _userRepository.GetUsers() select user;
