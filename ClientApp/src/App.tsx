@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, MouseEvent } from 'react';
-import { Route, Switch } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router';
 import Layout from './components/layout/Layout';
 import Home from './components/pages/Home';
 import Login from './components/pages/Login';
@@ -21,8 +21,8 @@ export const LanguageContext = React.createContext({
 
 @inject("UserStore", "CommonStore")
 @observer
-export class App extends React.Component<{}, { language: string, changeLanguage: (event: MouseEvent<HTMLAnchorElement>) => void }>  {
-    constructor(props:{}) {
+export class App extends React.Component<any, { language: string, changeLanguage: (event: MouseEvent<HTMLAnchorElement>) => void }>  {
+    constructor(props: any) {
         super(props);
 
         const changeLanguage = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -44,14 +44,38 @@ export class App extends React.Component<{}, { language: string, changeLanguage:
         };
     }
 
+    IsAuthenticated() {
+        return this.props.CommonStore.token != undefined;
+    }
+
+    AuthenticatedRoute(path: string, component: JSX.Element) {
+        return (
+            <Route path={path} component={Login} />
+        )
+    }
+
+    UnauthenticatedRoute(path: string, component: any, to: string) {
+        if (this.IsAuthenticated()) {
+            var redirect = (<Redirect to={{pathname: to}} />)
+            return (
+                <Route path={path} render={props => (
+                    <Redirect to={{ pathname: to, state: { from: props.location } }} />
+                )} />
+            )    
+        }
+        return (
+            <Route path={path} component={component} />
+        )
+    }
+
     render() {
         return (
             <LanguageContext.Provider value={this.state}>
                 <Layout key={this.state.language}>
                     <Switch>
                         <Route exact path='/' component={Home} />
-                        <Route path='/login' component={Login} />
-                        <Route path='/signup' component={Signup} />
+                        {this.UnauthenticatedRoute('/login', Login, '/')}
+                        {this.UnauthenticatedRoute('/signup', Signup, '/')}
                         <Route path='/forgotpassword' component={ForgotPassword} />
                         <Route path='/recoverpassword/:userid/:guid' component={RecoverPassword} />
                         <Route component={NotFound} />

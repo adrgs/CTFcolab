@@ -1,4 +1,4 @@
-import { observable, action, reaction } from 'mobx';
+import { observable, action, reaction, makeObservable } from 'mobx';
 
 class CommonStore {
 
@@ -9,6 +9,7 @@ class CommonStore {
     @observable isLoadingTags = false;
   
     constructor() {
+      makeObservable(this);
       reaction(
         () => this.token,
         token => {
