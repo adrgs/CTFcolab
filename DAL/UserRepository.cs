@@ -29,6 +29,13 @@ namespace CTFcolab.DAL
         {
             return _context.Set<User>().SingleOrDefault(user => user.Email == email);
         }
+        public IEnumerable<Team> GetTeamsOwnedByID(int id)
+        {
+            var teams = from team in _context.Set<Team>()
+                        where team.Owner.Id == id
+                        select team;
+            return teams;
+        }
         public void InsertUser(User User)
         {
             _context.Set<User>().Add(User);
