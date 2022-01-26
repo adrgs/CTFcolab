@@ -21,10 +21,6 @@ namespace CTFcolab.DAL
         {
             return _context.Set<Comment>().Find(id);
         }
-        public Comment GetCommentByName(string commentname)
-        {
-            return _context.Set<Comment>().SingleOrDefault(comment => comment.Name == commentname);
-        }
         public void InsertComment(Comment Comment)
         {
             _context.Set<Comment>().Add(Comment);
