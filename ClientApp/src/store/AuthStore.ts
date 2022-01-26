@@ -13,6 +13,7 @@ class AuthStore {
         username: '',
         email: '',
         password: '',
+        repeatPassword: ''
     };
 
     constructor() {
@@ -23,7 +24,7 @@ class AuthStore {
             IsAuthenticated => {
 
             }
-          );
+        );
     }
 
     @action isAuthenticated() {
@@ -46,10 +47,15 @@ class AuthStore {
         this.values.password = password;
     }
 
+    @action setRepeatPassword(password: string) {
+        this.values.repeatPassword = password;
+    }
+
     @action reset() {
         this.values.username = '';
         this.values.email = '';
         this.values.password = '';
+        this.values.repeatPassword = '';
     }
 
     @action login() {
@@ -103,15 +109,49 @@ class AuthStore {
 
     @action register() {
         this.inProgress = true;
-        this.errors = undefined;
-        return Agent.Auth.register(this.values.username, this.values.email, this.values.password)
-            .then((user: any) => CommonStore.setToken(user && user.token))
-            .then(() => UserStore.pullUser())
-            .catch(action((err:Error) => {
-                this.errors = err.response && err.response.body && err.response.body.errors;
-                throw err;
-            }))
-            .finally(action(() => { this.inProgress = false; }));
+        this.errors = 'Waiting for server';
+
+        if (this.values.password != this.values.repeatPassword) {
+            this.errors = "The passwords don't match";
+            this.inProgress = false;
+        } else {
+            return Agent.Auth.register(this.values.username, this.values.email, this.values.password).then(
+                (result) => {
+                    this.inProgress = false;
+                    this.errors = undefined;
+                }
+            ).catch((err) => {
+                if (err.status == 404) {
+                    this.errors = "404 API not found";
+                }
+                if (err.status == 401) {
+                    this.reset();
+                }
+                function objToString(obj: any) {
+                    var str = '';
+                    for (var p in obj) {
+                        if (Object.prototype.hasOwnProperty.call(obj, p)) {
+                            str += obj[p] + '\n';
+                        }
+                    }
+                    return str;
+                }
+    
+                if (err.message) {
+                    var obj = JSON.parse(err.message);
+                    if (typeof obj == "string") {
+                        this.errors = obj;
+                    } else {
+                        if (obj && obj.errors) {
+                            this.errors = objToString(obj.errors);
+                        } else {
+                            this.errors = objToString(obj);
+                        }
+                    }
+                }
+                this.inProgress = false;
+            });
+        }
     }
 
     @action logout() {
@@ -124,8 +164,8 @@ class AuthStore {
 }
 
 type Error = {
-    response?: { body?: { errors?:any } };
+    response?: { body?: { errors?: any } };
     message?: string | undefined;
-  }
+}
 
 export default new AuthStore();
