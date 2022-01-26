@@ -2,17 +2,31 @@ import * as React from 'react';
 import NavMenu, { HeaderLink } from './NavMenu';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../services/i18n';
+import { inject, observer } from 'mobx-react';
 
-export default class Layout extends React.PureComponent<{}, { children?: React.ReactNode }> {
+@inject("AuthStore")
+@observer
+export default class Layout extends React.PureComponent<any, { children?: React.ReactNode }> {
 
     public render() {
         
 
-        const links = [
+        let links = [
             new HeaderLink(i18n.t('home_page'), '/'),
-            new HeaderLink(i18n.t('login'), '/login'),
-            new HeaderLink(i18n.t('sign_up'), '/signup')
         ];
+
+        if (!this.props.AuthStore.IsAuthenticated) {
+            links = links.concat(
+                [
+                    new HeaderLink(i18n.t('login'), '/login'),
+                    new HeaderLink(i18n.t('sign_up'), '/signup'),
+                ]
+            );
+        } else {
+            links = links.concat([
+                new HeaderLink(i18n.t('logout'), '/logout'),
+            ]);
+        }
 
         return (
             <div className="mx-auto h-full" style={{ minHeight: 85 + 'vh' }}>

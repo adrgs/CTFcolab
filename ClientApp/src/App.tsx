@@ -5,6 +5,7 @@ import Layout from './components/layout/Layout';
 import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import Signup from './components/pages/Signup';
+import Logout from './components/pages/Logout';
 import ForgotPassword from './components/pages/ForgotPassword';
 import RecoverPassword from './components/pages/RecoverPassword';
 import NotFound from './components/pages/NotFound';
@@ -19,7 +20,7 @@ export const LanguageContext = React.createContext({
     changeLanguage: function(event: MouseEvent<HTMLAnchorElement>){}
 });
 
-@inject("UserStore", "CommonStore")
+@inject("AuthStore")
 @observer
 export class App extends React.Component<any, { language: string, changeLanguage: (event: MouseEvent<HTMLAnchorElement>) => void }>  {
     constructor(props: any) {
@@ -44,28 +45,43 @@ export class App extends React.Component<any, { language: string, changeLanguage
         };
     }
 
-    IsAuthenticated() {
-        return this.props.CommonStore.token != undefined;
+    AuthenticatedRoute(path: string, component: any, to: string) {
+        if (this.props.AuthStore.IsAuthenticated) {
+            return (
+                <Route path={path} component={component} />
+            );
+        }
+        return (
+            <Route path={path} render={props => (
+                <Redirect to={{ pathname: to, state: { from: props.location } }} />
+            )} />
+        );
     }
 
-    AuthenticatedRoute(path: string, component: JSX.Element) {
+    AuthorizedRoute(role:string, path: string, component: any, to: string) {
+        if (this.props.AuthStore.IsAuthenticated && this.props.AuthStore.isAuthorized(role)) {
+            return (
+                <Route path={path} component={component} />
+            );
+        }
         return (
-            <Route path={path} component={Login} />
-        )
+            <Route path={path} render={props => (
+                <Redirect to={{ pathname: to, state: { from: props.location } }} />
+            )} />
+        );
     }
 
     UnauthenticatedRoute(path: string, component: any, to: string) {
-        if (this.IsAuthenticated()) {
-            var redirect = (<Redirect to={{pathname: to}} />)
+        if (this.props.AuthStore.IsAuthenticated) {
             return (
                 <Route path={path} render={props => (
                     <Redirect to={{ pathname: to, state: { from: props.location } }} />
                 )} />
-            )    
+            );
         }
         return (
             <Route path={path} component={component} />
-        )
+        );
     }
 
     render() {
@@ -76,8 +92,9 @@ export class App extends React.Component<any, { language: string, changeLanguage
                         <Route exact path='/' component={Home} />
                         {this.UnauthenticatedRoute('/login', Login, '/')}
                         {this.UnauthenticatedRoute('/signup', Signup, '/')}
-                        <Route path='/forgotpassword' component={ForgotPassword} />
-                        <Route path='/recoverpassword/:userid/:guid' component={RecoverPassword} />
+                        {this.UnauthenticatedRoute('/forgotpassword', ForgotPassword, '/')}
+                        {this.UnauthenticatedRoute('/recoverpassword/:userid/:guid', RecoverPassword, '/')}
+                        {this.AuthenticatedRoute('/logout', Logout, '/')}
                         <Route component={NotFound} />
                     </Switch>
                 </Layout>

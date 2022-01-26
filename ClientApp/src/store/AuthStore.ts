@@ -1,4 +1,4 @@
-import { observable, action, makeObservable } from 'mobx';
+import { observable, action, makeObservable, reaction } from 'mobx';
 import Agent from '../Agent';
 import UserStore, { User } from './UserStore';
 import CommonStore from './CommonStore';
@@ -6,6 +6,8 @@ import CommonStore from './CommonStore';
 class AuthStore {
     @observable inProgress: boolean = false;
     @observable errors: string | undefined = undefined;
+
+    @observable IsAuthenticated: boolean = CommonStore.token != undefined;
 
     @observable values = {
         username: '',
@@ -15,6 +17,21 @@ class AuthStore {
 
     constructor() {
         makeObservable(this);
+
+        reaction(
+            () => this.isAuthenticated(),
+            IsAuthenticated => {
+
+            }
+          );
+    }
+
+    @action isAuthenticated() {
+        return CommonStore.token != undefined;
+    }
+
+    @action isAuthorized(role: string) {
+        return this.isAuthenticated() && UserStore.currentUser && UserStore.currentUser.role == role;
     }
 
     @action setUsername(username: string) {
@@ -43,11 +60,12 @@ class AuthStore {
                 try {
                     CommonStore.setToken(JSON.parse(result.text));
                     UserStore.pullUser();
+                    this.IsAuthenticated = !this.IsAuthenticated;
                 }
                 catch {
                     this.errors = "Server error";
                 }
-                
+
                 this.inProgress = false;
             }
         ).catch((err) => {
@@ -97,8 +115,10 @@ class AuthStore {
     }
 
     @action logout() {
+        console.log("Logout!");
         CommonStore.setToken(undefined);
         UserStore.forgetUser();
+        this.IsAuthenticated = !this.IsAuthenticated;
         return Promise.resolve();
     }
 }
