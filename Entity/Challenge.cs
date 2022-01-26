@@ -24,5 +24,7 @@ namespace CTFcolab.Entity
         public string Category { get; set; }
 
         public bool Solved { get; set; }
+
+        public Comment[] Comments {get;set;}
     }
 }
