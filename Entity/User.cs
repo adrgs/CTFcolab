@@ -25,5 +25,7 @@ namespace CTFcolab.Entity
         [MaxLength(100)]
         public string Role { get; set; }
 
+        public Team[] Teams { get; set; }
+
     }
 }
