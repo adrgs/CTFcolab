@@ -19,11 +19,20 @@ namespace CTFcolab.DAL
         }
         public Team GetTeamByID(int id)
         {
-            return _context.Set<Team>().Find(id);
+            return _context.Set<Team>().Include("Users").Include("Owner").Include("Competitions").SingleOrDefault(team => team.Id == id);
         }
         public Team GetTeamByName(string teamname)
         {
-            return _context.Set<Team>().SingleOrDefault(team => team.Name == teamname);
+            return _context.Set<Team>().Include("Users").Include("Owner").Include("Competitions").SingleOrDefault(team => team.Name == teamname);
+        }
+
+        public Team GetTeamByInviteCode(string inviteCode)
+        {
+            return _context.Set<Team>().Include("Users").Include("Owner").Include("Competitions").SingleOrDefault(team => team.InviteCode == inviteCode);
+        }
+
+        public User GetUserByID(int Id) {
+            return _context.Set<User>().Include("Teams").Include("ResetPasswordCode").SingleOrDefault(user => user.Id == Id);
         }
         public void InsertTeam(Team Team)
         {

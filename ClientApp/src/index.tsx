@@ -8,6 +8,7 @@ import { Provider } from 'mobx-react';
 import AuthStore from './store/AuthStore';
 import CommonStore from './store/CommonStore';
 import UserStore from './store/UserStore';
+import TeamStore from './store/TeamStore';
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href') as string;
 const history = createBrowserHistory({ basename: baseUrl });
@@ -15,7 +16,8 @@ const history = createBrowserHistory({ basename: baseUrl });
 const stores = {
     AuthStore,
     CommonStore,
-    UserStore
+    UserStore,
+    TeamStore
 };
 
 ReactDOM.render(

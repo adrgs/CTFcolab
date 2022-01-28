@@ -9,6 +9,8 @@ namespace CTFcolab.DAL
         IEnumerable<Team> GetTeams();  
         Team GetTeamByID(int TeamId);   
         Team GetTeamByName(string username);  
+        Team GetTeamByInviteCode(string inviteCode);
+        User GetUserByID(int Id);
         void InsertTeam(Team user);  
         void DeleteTeam(int TeamID);  
         void UpdateTeam(Team user);  

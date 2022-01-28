@@ -16,6 +16,10 @@ import './custom.css'
 import i18n from './services/i18n';
 import Users from './components/pages/User/Users';
 import Profile from './components/pages/User/Profile';
+import AllTeams from './components/pages/Team/AllTeams';
+import CreateTeam from './components/pages/Team/CreateTeam';
+import JoinTeam from './components/pages/Team/JoinTeam';
+import Team from './components/pages/Team/Team';
 
 export const LanguageContext = React.createContext({
     language: i18n.language,
@@ -101,7 +105,11 @@ export class App extends React.Component<any, { language: string, changeLanguage
                         {this.AuthenticatedRoute('/logout', Logout, '/')}
                         
                         {this.AuthorizedRoute('Admin', '/users', Users, '/login')}
+                        {this.AuthorizedRoute('Admin', '/team/all', AllTeams, '/login')}
+                        {this.AuthorizedRoute('Admin', '/team/create', CreateTeam, '/login')}
                         {this.AuthenticatedRoute('/profile', Profile, '/login')}
+                        {this.AuthenticatedRoute('/team/join', JoinTeam, '/login')}
+                        {this.AuthenticatedRoute('/team/:teamid', Team, '/login')}
                         <Route component={NotFound} />
                     </Switch>
                 </Layout>

@@ -41,14 +41,24 @@ export default class Layout extends React.PureComponent<any, { children?: React.
         if (this.props.UserStore.currentUser) 
         {
             ddmItems = [
-                {'label':'Teams', 'items': [{'label':'Join Team', 'link':'/team/join'}]}
+                {'label':'Teams', 'items': []}
             ];
 
+            if (!this.props.UserStore.currentUser.teams) {
+                this.props.UserStore.currentUser.teams = [];
+            }
+
             this.props.UserStore.currentUser.teams.map((team: Team) => {
-                ddmItems[0].items.push(
-                    {'label': team.name, 'link': '/team/' + team.id}
-                );
+                if (team) {
+                    ddmItems[0].items.push(
+                        {'label': team.name, 'link': '/team/' + team.id}
+                    );
+                }
             })
+
+            ddmItems[0].items.push(
+                {'label':'Join Team', 'link':'/team/join'}
+            );
         }
         if (this.props.UserStore.currentUser && this.props.AuthStore.isAuthorized('Admin')) {
             ddmItems[0].items.unshift({'label':'All Teams', 'link':'/team/all'});

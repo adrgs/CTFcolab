@@ -4,7 +4,7 @@ import DescriptionList from "../../misc/DescriptionList";
 
 @inject("TeamStore")
 @observer
-export default class Team extends React.Component<any> {
+export default class AllTeams extends React.Component<any> {
     constructor(props: any) {
         super(props);
 
@@ -26,7 +26,6 @@ export default class Team extends React.Component<any> {
                                     )
                                 })}
                             </div>
-                            <h1>Competitions (WIP)</h1>
                         </div>
                     </div>
                 </>
