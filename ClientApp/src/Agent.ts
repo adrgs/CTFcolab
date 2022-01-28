@@ -44,6 +44,10 @@ const Auth = {
     requests.post('/user/login', { name:username, password }),
   register: (username: string, email: string, password: string) =>
     requests.post('/user/signup', { name:username, email, password }),
+  forgotpassword: (username: string, email: string) =>
+    requests.post('/user/forgotpassword', { name:username, email }),
+  recoverpassword: (id: number, password: string, resetPasswordCode:string) =>
+    requests.post('/user/recoverpassword/'+resetPasswordCode, { id, password }),
   save: (user: User) =>
     requests.put('/user/self', { user })
 };

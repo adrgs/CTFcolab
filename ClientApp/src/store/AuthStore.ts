@@ -13,7 +13,9 @@ class AuthStore {
         username: '',
         email: '',
         password: '',
-        repeatPassword: ''
+        repeatPassword: '',
+        id: 0,
+        resetPasswordCode: ''
     };
 
     constructor() {
@@ -56,6 +58,8 @@ class AuthStore {
         this.values.email = '';
         this.values.password = '';
         this.values.repeatPassword = '';
+        this.values.id = 0;
+        this.values.resetPasswordCode = '';
     }
 
     @action login() {
@@ -136,7 +140,96 @@ class AuthStore {
                     }
                     return str;
                 }
-    
+
+                if (err.message) {
+                    var obj = JSON.parse(err.message);
+                    if (typeof obj == "string") {
+                        this.errors = obj;
+                    } else {
+                        if (obj && obj.errors) {
+                            this.errors = objToString(obj.errors);
+                        } else {
+                            this.errors = objToString(obj);
+                        }
+                    }
+                }
+                this.inProgress = false;
+            });
+        }
+    }
+
+    @action forgotpassword() {
+        this.inProgress = true;
+        this.errors = 'Waiting for server';
+
+        return Agent.Auth.forgotpassword(this.values.username, this.values.email).then(
+            (result) => {
+                this.inProgress = false;
+                this.errors = undefined;
+            }
+        ).catch((err) => {
+            if (err.status == 404) {
+                this.errors = "404 API not found";
+            }
+            if (err.status == 401) {
+                this.reset();
+            }
+            function objToString(obj: any) {
+                var str = '';
+                for (var p in obj) {
+                    if (Object.prototype.hasOwnProperty.call(obj, p)) {
+                        str += obj[p] + '\n';
+                    }
+                }
+                return str;
+            }
+
+            if (err.message) {
+                var obj = JSON.parse(err.message);
+                if (typeof obj == "string") {
+                    this.errors = obj;
+                } else {
+                    if (obj && obj.errors) {
+                        this.errors = objToString(obj.errors);
+                    } else {
+                        this.errors = objToString(obj);
+                    }
+                }
+            }
+            this.inProgress = false;
+        });
+    }
+
+    @action recoverpassword() {
+        this.inProgress = true;
+        this.errors = 'Waiting for server';
+
+        if (this.values.password != this.values.repeatPassword) {
+            this.errors = "The passwords don't match";
+            this.inProgress = false;
+        } else {
+            return Agent.Auth.recoverpassword(this.values.id, this.values.password, this.values.resetPasswordCode).then(
+                (result) => {
+                    this.inProgress = false;
+                    this.errors = undefined;
+                }
+            ).catch((err) => {
+                if (err.status == 404) {
+                    this.errors = "404 API not found";
+                }
+                if (err.status == 401) {
+                    this.reset();
+                }
+                function objToString(obj: any) {
+                    var str = '';
+                    for (var p in obj) {
+                        if (Object.prototype.hasOwnProperty.call(obj, p)) {
+                            str += obj[p] + '\n';
+                        }
+                    }
+                    return str;
+                }
+
                 if (err.message) {
                     var obj = JSON.parse(err.message);
                     if (typeof obj == "string") {

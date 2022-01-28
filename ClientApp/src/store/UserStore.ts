@@ -1,12 +1,14 @@
 import { observable, action, makeObservable } from 'mobx';
 import Agent from '../Agent';
 import CommonStore from './CommonStore';
+import { Team } from './TeamStore';
 
 export interface User {
     id: number;
     username: string;
     email: string;
     role: string;
+    teams: Team[];
     token?: string;
 }
 

@@ -2,7 +2,7 @@ import { inject, observer } from "mobx-react";
 import * as React from 'react';
 import DescriptionList from "../../misc/DescriptionList";
 
-@inject("UserStore")
+@inject("UserStore", "TeamStore")
 @observer
 export default class Profile extends React.Component<any> {
     render() {

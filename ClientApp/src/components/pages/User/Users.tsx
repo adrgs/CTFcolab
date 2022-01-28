@@ -22,7 +22,7 @@ export default class Users extends React.Component<any> {
                             <div className="flex flex-col">
                                 {allUsers.map((user: any) => {
                                     return (
-                                        <DescriptionList dictObject={user} />
+                                        <DescriptionList dictObject={user} keysWhitelist={['id', 'name', 'email', 'teams', 'role']} />
                                     )
                                 })}
                             </div>

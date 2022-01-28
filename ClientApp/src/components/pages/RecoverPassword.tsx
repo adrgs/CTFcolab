@@ -1,8 +1,46 @@
 import * as React from 'react';
+import { inject, observer } from 'mobx-react';
 import { RouteComponentProps } from 'react-router';
 
-class RecoverPassword extends React.PureComponent<RouteComponentProps<{ userid: string, guid: string }>> {
+@inject("AuthStore", "UserStore")
+@observer
+class RecoverPassword extends React.PureComponent<any> {
+   componentWillUnmount() {
+      this.props.AuthStore.reset();
+   }
+
+   handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      this.props.AuthStore.setPassword(e.target.value);
+   };
+
+   handleRepeatPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      this.props.AuthStore.setRepeatPassword(e.target.value);
+   };
+
+   handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      let promise : Promise<any> | undefined | null = this.props.AuthStore.recoverpassword();
+      if (promise) {
+         promise.finally(() => {
+            if (!this.props.AuthStore.errors) {
+               this.props.history.replace("/login");
+            }
+         });
+      }
+   };
+
+   constructor(props: any)
+   {
+      super(props);
+
+      this.props.AuthStore.values.id = this.props.match.params.userid && parseInt(this.props.match.params.userid);
+      this.props.AuthStore.values.resetPasswordCode = this.props.match.params.guid;
+   }
+
+
    public render() {
+      const { values, errors, inProgress } = this.props.AuthStore;
+
       return (<div className="flex flex-wrap -mx-4">
       <div className="w-full px-4">
          <div
@@ -31,15 +69,17 @@ class RecoverPassword extends React.PureComponent<RouteComponentProps<{ userid: 
                   </a>
                </div>
                <p className="text-base text-[#adadad]">
-                  Change password for user {this.props.match.params.userid}
+                  Change password for user
                </p>
                <br></br>
-               <form>
+               <form onSubmit={this.handleSubmitForm}>
                <div className="mb-6">
                      <input
                         type="password"
                         placeholder="Password"
                         name="password"
+                        value={values.password}
+                        onChange={this.handlePasswordChange}
                         className="
                         w-full
                         rounded-md
@@ -61,6 +101,8 @@ class RecoverPassword extends React.PureComponent<RouteComponentProps<{ userid: 
                         type="password"
                         placeholder="Repeat password"
                         name="repeat-password"
+                        value={values.repeatPassword}
+                        onChange={this.handleRepeatPasswordChange}
                         className="
                         w-full
                         rounded-md
@@ -79,10 +121,14 @@ class RecoverPassword extends React.PureComponent<RouteComponentProps<{ userid: 
                      <input type="hidden" name="userid" value={this.props.match.params.userid}></input>
                      <input type="hidden" name="guid" value={this.props.match.params.guid}></input>
                   </div>
+                  <h2 className={'text-[#ED4A50] pb-4 ' + (errors ? 'visible' : 'invisible')}>
+                        Error: {errors}
+                  </h2>
                   <div className="mb-10">
                      <input
                         type="submit"
                         value="Change password"
+                        disabled={inProgress}
                         className="
                         w-full
                         rounded-md
