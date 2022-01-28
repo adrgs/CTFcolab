@@ -31,9 +31,6 @@ namespace CTFcolab.DAL
             return _context.Set<Team>().Include("Users").Include("Owner").Include("Competitions").SingleOrDefault(team => team.InviteCode == inviteCode);
         }
 
-        public User GetUserByID(int Id) {
-            return _context.Set<User>().Include("Teams").Include("ResetPasswordCode").SingleOrDefault(user => user.Id == Id);
-        }
         public void InsertTeam(Team Team)
         {
             _context.Set<Team>().Add(Team);
