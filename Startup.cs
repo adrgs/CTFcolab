@@ -11,6 +11,8 @@ using Microsoft.IdentityModel.Tokens;
 using CTFcolab.Authorization;
 using System.Text;
 using System;
+using Newtonsoft.Json;
+using CTFcolab.Helpers;
 
 namespace CTFcolab
 {
@@ -19,6 +21,8 @@ namespace CTFcolab
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            MailgunConfig.MailgunApi = Configuration.GetValue<string>("MailgunApi");
+            MailgunConfig.MailgunDomain = Configuration.GetValue<string>("MailgunDomain");
         }
 
         public IConfiguration Configuration { get; }
@@ -26,7 +30,7 @@ namespace CTFcolab
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddSwaggerGen();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)    
