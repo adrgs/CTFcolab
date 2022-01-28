@@ -13,9 +13,8 @@ namespace CTFcolab.Entity
         [MaxLength(1024)]
         public string Text { get; set; }
 
-        public User User { get; set; }
-        public Challenge Challenge { get; set; }
-
         public DateTime CreatedAt { get; set; }
+        public virtual User User { get; set; }
+        public virtual Challenge Challenge { get; set; }
     }
 }

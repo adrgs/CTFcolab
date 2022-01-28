@@ -1,11 +1,16 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace CTFcolab.Entity
 {
     [Table("Team")]
     public class Team : IEntity
     {
+        public Team() {
+            this.Users = new HashSet<User>();
+            this.Competitions = new HashSet<Competition>();
+        }
         [Key]
         public int Id { get; set; }
 
@@ -20,8 +25,8 @@ namespace CTFcolab.Entity
         [MaxLength(36)]
         public string InviteCode { get; set; }
 
-        public Competition[] Competitions { get;set; }
-        public User Owner { get;set; }
-        public User[] Users { get;set; }
+        public virtual ICollection<Competition> Competitions { get;set; }
+        public virtual User Owner { get;set; }
+        public virtual ICollection<User> Users { get;set; }
     }
 }

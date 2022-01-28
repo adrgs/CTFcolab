@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 using System;
 
 namespace CTFcolab.Entity
@@ -7,6 +8,9 @@ namespace CTFcolab.Entity
     [Table("Challenge")]
     public class Challenge : IEntity
     {
+        public Challenge() {
+            this.Comments = new HashSet<Comment>();
+        }
         [Key]
         public int Id { get; set; }
 
@@ -25,6 +29,6 @@ namespace CTFcolab.Entity
 
         public bool Solved { get; set; }
 
-        public Comment[] Comments {get;set;}
+        public virtual ICollection<Comment> Comments {get;set;}
     }
 }
