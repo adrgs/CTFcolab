@@ -15,19 +15,19 @@ namespace CTFcolab.DAL
         }
         public IEnumerable<User> GetUsers()
         {
-            return _context.Set<User>().ToList();
+            return _context.Set<User>().Include("Teams").ToList();
         }
         public User GetUserByID(int id)
         {
-            return _context.Set<User>().Find(id);
+            return _context.Set<User>().Include("Teams").Include("ResetPasswordCode").SingleOrDefault(user => user.Id == id);
         }
         public User GetUserByName(string username)
         {
-            return _context.Set<User>().SingleOrDefault(user => user.Name == username);
+            return _context.Set<User>().Include("Teams").Include("ResetPasswordCode").SingleOrDefault(user => user.Name == username);
         }
         public User GetUserByEmail(string email)
         {
-            return _context.Set<User>().SingleOrDefault(user => user.Email == email);
+            return _context.Set<User>().Include("Teams").Include("ResetPasswordCode").SingleOrDefault(user => user.Email == email);
         }
         public IEnumerable<Team> GetTeamsOwnedByID(int id)
         {
