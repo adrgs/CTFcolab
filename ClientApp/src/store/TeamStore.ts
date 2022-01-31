@@ -141,6 +141,14 @@ class TeamStore {
             });
     }
 
+    @action getTeam(id: string | number) {
+        this.allTeams = [];
+        Agent.requests.get('/team/id/'+id).then(
+            (result) => {
+                this.currentTeam = (result.body as Team);
+            });
+    }
+
     @action forgetTeam() {
         this.currentTeam = undefined;
     }
