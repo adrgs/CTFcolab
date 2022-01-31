@@ -56,6 +56,33 @@ namespace CTFcolab.Controllers
             return user;
         }
 
+        [HttpGet]
+        [ActionName("owners")]
+        [Authorize("Admin")]
+        public IEnumerable<User> GetOwners()
+        {
+            var owners = _userRepository.GetOwners();
+            return owners;
+        }
+
+        [HttpGet]
+        [ActionName("usersWithResetPasswordCodes")]
+        [Authorize("Admin")]
+        public IEnumerable<User> UsersWithResetPasswordCodes()
+        {
+            var usersWithResetPasswordCodes = _userRepository.UsersWithResetPasswordCodes();
+            return usersWithResetPasswordCodes;
+        }
+
+        [HttpGet]
+        [ActionName("adminStats")]
+        [Authorize("Admin")]
+        public IEnumerable<Tuple<string, int>> AdminStats()
+        {
+            var adminStats = _userRepository.AdminStats();
+            return adminStats;
+        }
+
         [HttpPut]
         [HttpPatch]
         [ActionName("id")]

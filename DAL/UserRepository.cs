@@ -15,7 +15,25 @@ namespace CTFcolab.DAL
         }
         public IEnumerable<User> GetUsers()
         {
-            return _context.Set<User>().Include("Teams").ToList();
+            return from user in _context.Set<User>().Include("Teams")
+                   select user;
+        }
+        public IEnumerable<User> GetOwners()
+        {
+            return from user in _context.Set<User>()
+                   join team in _context.Set<Team>() on user.Id equals team.Id
+                   select user;
+        }
+
+        public IEnumerable<User> UsersWithResetPasswordCodes()
+        {
+            return from user in _context.Set<User>().Include("Teams").Include("ResetPasswordCode")
+                   where user.ResetPasswordCode != null && DateTime.Today < user.ResetPasswordCode.ExpirationDate 
+                   select user;
+        }
+        public IEnumerable<Tuple<string, int>> AdminStats()
+        {
+            return _context.Set<User>().Include("ResetPasswordCode").GroupBy(user => user.Role).Select(group => Tuple.Create(group.Key, group.Count())).ToList();
         }
         public User GetUserByID(int id)
         {
