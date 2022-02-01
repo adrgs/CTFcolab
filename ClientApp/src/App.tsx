@@ -20,6 +20,11 @@ import AllTeams from './components/pages/Team/AllTeams';
 import CreateTeam from './components/pages/Team/CreateTeam';
 import JoinTeam from './components/pages/Team/JoinTeam';
 import Team from './components/pages/Team/Team';
+import CreateCompetition from './components/pages/Competition/CreateCompetition';
+import Competition from './components/pages/Competition/Competition';
+import Challenge from './components/pages/Challenge/Challenge';
+import CreateChallenge from './components/pages/Challenge/CreateChallenge';
+import CreateComment from './components/pages/Comment/CreateComment';
 
 export const LanguageContext = React.createContext({
     language: i18n.language,
@@ -107,9 +112,14 @@ export class App extends React.Component<any, { language: string, changeLanguage
                         {this.AuthorizedRoute('Admin', '/users', Users, '/login')}
                         {this.AuthorizedRoute('Admin', '/team/all', AllTeams, '/login')}
                         {this.AuthorizedRoute('Admin', '/team/create', CreateTeam, '/login')}
+                        {this.AuthorizedRoute('Admin', '/competition/create/:teamid', CreateCompetition, '/login')}
+                        {this.AuthorizedRoute('Admin', '/challenge/create/:competitionid', CreateChallenge, '/login')}
+                        {this.AuthorizedRoute('Admin', '/comment/create/:challengeid', CreateComment, '/login')}
                         {this.AuthenticatedRoute('/profile', Profile, '/login')}
                         {this.AuthenticatedRoute('/team/join', JoinTeam, '/login')}
                         {this.AuthenticatedRoute('/team/:teamid', Team, '/login')}
+                        {this.AuthenticatedRoute('/competition/:competitionid', Competition, '/login')}
+                        {this.AuthenticatedRoute('/challenge/:challengeid', Challenge, '/login')}
                         <Route component={NotFound} />
                     </Switch>
                 </Layout>
