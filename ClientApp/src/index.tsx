@@ -9,6 +9,8 @@ import AuthStore from './store/AuthStore';
 import CommonStore from './store/CommonStore';
 import UserStore from './store/UserStore';
 import TeamStore from './store/TeamStore';
+import CompetitionStore from './store/CompetitionStore';
+import ChallengeStore from './store/ChallengeStore';
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href') as string;
 const history = createBrowserHistory({ basename: baseUrl });
@@ -17,7 +19,9 @@ const stores = {
     AuthStore,
     CommonStore,
     UserStore,
-    TeamStore
+    TeamStore,
+    CompetitionStore,
+    ChallengeStore
 };
 
 ReactDOM.render(
