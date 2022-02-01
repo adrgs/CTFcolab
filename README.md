@@ -9,6 +9,8 @@
 
 <img src="ClientApp/public/img/promo.png" alt="CTFcolab promo">
 
+Live demo: [https://ctfcolab.wtl.pw](https://ctfcolab.wtl.pw)
+
 ## Features
 
 Backend:
@@ -25,5 +27,5 @@ React:
 * [Login, Register, User profile](ClientApp/src/components/pages)
 * [Reset password (bonus 0,25)](ClientApp/src/components/pages/RecoverPassword.tsx)
 * [Global state manager (redux, **mobX**, context api)](ClientApp/src/store/AuthStore.ts)
-* [custom hooks (bonus 0,25)](ClientApp/src/components/layout/NavMenu.tsx#L58)
+* [custom hooks (bonus 0,25)](ClientApp/src/components/layout/NavMenu.tsx#L62)
 * [traduceri (bonus 0,25)](ClientApp/src/services)
