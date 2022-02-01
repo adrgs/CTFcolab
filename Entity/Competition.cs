@@ -16,7 +16,6 @@ namespace CTFcolab.Entity
 
         [MaxLength(50)]
         [MinLength(1)]
-        [Index(IsUnique=true)]
         public string Name { get; set; }
 
         [MaxLength(255)]
@@ -27,5 +26,7 @@ namespace CTFcolab.Entity
         public DateTime EndDate { get; set; }
 
         public virtual ICollection<Challenge> Challenges { get; set; }
+
+        public virtual Team Team { get; set; }
     }
 }

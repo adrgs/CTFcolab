@@ -30,5 +30,6 @@ namespace CTFcolab.Entity
         public bool Solved { get; set; }
 
         public virtual ICollection<Comment> Comments {get;set;}
+        public virtual Competition Competition { get; set; }
     }
 }
