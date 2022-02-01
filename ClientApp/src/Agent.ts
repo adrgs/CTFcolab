@@ -29,6 +29,12 @@ const requests = {
       .set('Content-Type', 'application/json')
       .use(tokenPlugin)
       .send(body),
+  patch: (url: string, body: {}) =>
+      superagent
+        .patch(`${API_ROOT}${url}`)
+        .set('Content-Type', 'application/json')
+        .use(tokenPlugin)
+        .send(body),
   post: (url: string, body: {}) =>
     superagent
       .post(`${API_ROOT}${url}`)
