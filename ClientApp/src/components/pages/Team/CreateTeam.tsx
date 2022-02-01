@@ -8,6 +8,12 @@ import InputText from "../../misc/InputText";
 @observer
 export default class CreateTeam extends React.Component<any> {
 
+    componentWillMount() {
+
+        this.props.TeamStore.forgetTeam();
+
+    }
+
     handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         this.props.TeamStore.values.name = e.target.value;
     };
@@ -19,15 +25,16 @@ export default class CreateTeam extends React.Component<any> {
     handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         this.props.TeamStore.createTeam();
-        if (this.props.TeamStore.currentTeam) {
-            this.props.history.replace("/team/" + this.props.TeamStore.currentTeam.id);
-        }
     };
 
 
     render() {
         const { currentUser } = this.props.UserStore;
         const { values, errors, inProgress } = this.props.TeamStore;
+
+        if (!inProgress && this.props.TeamStore.currentTeam) {
+            this.props.history.replace("/team/" + this.props.TeamStore.currentTeam.id);
+        }
 
         if (currentUser) {
             return (
