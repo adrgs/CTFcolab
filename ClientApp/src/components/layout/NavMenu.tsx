@@ -53,11 +53,35 @@ export interface DDM {
     items: DDMItem[];
 }
 
+interface MenuStatus
+{
+    isMenuOpen: boolean;
+    setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const NavMenu = (props: Props) => {
+function useMenuStatus(): MenuStatus {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    return {isMenuOpen, setIsMenuOpen};
+}
+
+interface ThemeMode
+{
+    isDarkMode: boolean;
+    setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function useThemeMode():ThemeMode {
     const [isDarkMode, setDarkMode] = useState(localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches));
+
+    return {isDarkMode, setDarkMode};
+}
+
+const NavMenu = (props: Props) => {
+    const {isMenuOpen, setIsMenuOpen} = useMenuStatus();
+    const {isDarkMode, setDarkMode} = useThemeMode();
+
+    
 
     const changeMode = (isDark: boolean) => {
         setDarkMode(isDark);
