@@ -21,7 +21,7 @@ namespace CTFcolab.DAL
         public IEnumerable<User> GetOwners()
         {
             return from user in _context.Set<User>()
-                   join team in _context.Set<Team>() on user.Id equals team.Id
+                   join team in _context.Set<Team>() on user.Id equals team.Owner.Id
                    select user;
         }
 
