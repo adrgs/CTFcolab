@@ -124,6 +124,17 @@ namespace CTFcolab.Controllers
         public ActionResult DeleteId(int id)
         {
             try {
+                var users = _userRepository.GetUsers();
+                foreach (User user in users)
+                {
+                    foreach (Team team in user.Teams) {
+                        if (team.Id == id) {
+                            user.Teams.Remove(team);
+                            _userRepository.UpdateUser(user);
+                            _userRepository.Save();
+                        }
+                    }
+                }
                 _teamRepository.DeleteTeam(id);
                 _teamRepository.Save();
                 return Okay("Team deleted");

@@ -20,11 +20,18 @@ namespace CTFcolab.Controllers
     {
         private readonly ILogger<ChallengeController> _logger;
         private IChallengeRepository _challengeRepository;
+        private ICompetitionRepository _competitionRepository;
+        private ICommentRepository _commentRepository;
+        private IUserRepository _userRepository;
 
         public ChallengeController(ILogger<ChallengeController> logger)
         {
             _logger = logger;
-            _challengeRepository = new ChallengeRepository(new CTFcolabDbContext());
+            var context = new CTFcolabDbContext();
+            _challengeRepository = new ChallengeRepository(context);
+            _competitionRepository = new CompetitionRepository(context);
+            _commentRepository = new CommentRepository(context);
+            _userRepository = new UserRepository(context);
         }
 
         [HttpGet]
@@ -44,15 +51,54 @@ namespace CTFcolab.Controllers
         }
 
         [HttpPost]
-        [ActionName("new")]
-        public Challenge Create(Challenge challenge)
+        [ActionName("create")]
+        [Authorize("Admin")]
+        public Challenge Create(int id, Challenge challenge)
         {
+            if (String.IsNullOrWhiteSpace(challenge.Name)) {
+                return null;
+            }
             try {
+                Competition competition = _competitionRepository.GetCompetitionByID(id);
+                challenge.Competition = competition;
+                challenge.Flag = "";
+                _challengeRepository.InsertChallenge(challenge);
+                _challengeRepository.Save();
+                competition.Challenges.Add(challenge);
+                _competitionRepository.UpdateCompetition(competition);
+                _competitionRepository.Save();
+                return challenge;
+            } catch (Exception ex) {
+                return null;
+            }
+        }
+
+        [HttpPost]
+        [ActionName("comment")]
+        public Comment Create(int id, Comment comment)
+        {
+            if (String.IsNullOrWhiteSpace(comment.Text)) {
+                return null;
+            }
+            try {
+                Challenge challenge = _challengeRepository.GetChallengeByID(id);
+                comment.Challenge = challenge;
+                // comment.User = (User)HttpContext.Items["User"];
+                comment.CreatedAt = DateTime.Now;
+                _commentRepository.InsertComment(comment);
+                _commentRepository.Save();
+
+                comment.User = _userRepository.GetUserByID(((User)HttpContext.Items["User"]).Id);
+                _commentRepository.UpdateComment(comment);
+                _commentRepository.Save();
+
+                challenge.Comments.Add(comment);
                 _challengeRepository.UpdateChallenge(challenge);
                 _challengeRepository.Save();
-                return challenge;
-            } catch {}
-            return null;
+                return comment;
+            } catch (Exception ex) {
+                return null;
+            }
         }
 
         [HttpPut]
@@ -60,10 +106,16 @@ namespace CTFcolab.Controllers
         [ActionName("id")]
         public Challenge UpdateId(int id, Challenge challenge)
         {
+            if (challenge.Flag == null) {
+                return null;
+            }
             try {
-                _challengeRepository.UpdateChallenge(challenge);
+                Challenge chall = _challengeRepository.GetChallengeByID(id);
+                chall.Flag = challenge.Flag;
+                chall.Solved = challenge.Solved;
+                _challengeRepository.UpdateChallenge(chall);
                 _challengeRepository.Save();
-                return challenge;
+                return chall;
             } catch {}
             return null;
         }
@@ -73,6 +125,17 @@ namespace CTFcolab.Controllers
         public ActionResult DeleteId(int id)
         {
             try {
+                Challenge challenge = _challengeRepository.GetChallengeByID(id);
+                if (challenge != null && challenge.Competition != null) {
+                    Competition competition = _competitionRepository.GetCompetitionByID(challenge.Competition.Id);
+                    foreach (Challenge chall in competition.Challenges) {
+                        if (chall.Id == challenge.Id) {
+                            competition.Challenges.Remove(chall);
+                            _competitionRepository.UpdateCompetition(competition);
+                            _competitionRepository.Save();
+                        }
+                    }
+                }
                 _challengeRepository.DeleteChallenge(id);
                 _challengeRepository.Save();
                 return Okay("Challenge deleted");

@@ -35,7 +35,7 @@ namespace CTFcolab.Controllers
         [ActionName("self")]
         public User GetSelf()
         {
-            var user = (User)HttpContext.Items["User"];
+            var user = _userRepository.GetUserByID(((User)HttpContext.Items["User"]).Id);
             return user;
         }
 

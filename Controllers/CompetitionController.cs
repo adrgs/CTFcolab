@@ -20,11 +20,15 @@ namespace CTFcolab.Controllers
     {
         private readonly ILogger<CompetitionController> _logger;
         private ICompetitionRepository _competitionRepository;
+        private ITeamRepository _teamRepository;
 
         public CompetitionController(ILogger<CompetitionController> logger)
         {
             _logger = logger;
-            _competitionRepository = new CompetitionRepository(new CTFcolabDbContext());
+            var context = new CTFcolabDbContext();
+            
+            _competitionRepository = new CompetitionRepository(context);
+            _teamRepository = new TeamRepository(context);
         }
 
         [HttpGet]
@@ -40,19 +44,37 @@ namespace CTFcolab.Controllers
         public Competition GetId(int id)
         {
             var competition = _competitionRepository.GetCompetitionByID(id);
-            return competition;
+            var user = (User)HttpContext.Items["User"];
+            if (user!=null) {
+                foreach (Team team in user.Teams) {
+                    if (competition.Team.Id == team.Id) {
+                        return competition;
+                    }
+                }
+            }
+            return null;
         }
 
         [HttpPost]
-        [ActionName("new")]
-        public Competition Create(Competition competition)
+        [ActionName("create")]
+        [Authorize("Admin")]
+        public Competition Create(int id, Competition competition)
         {
+            if (String.IsNullOrWhiteSpace(competition.Name)) {
+                return null;
+            }
             try {
-                _competitionRepository.UpdateCompetition(competition);
+                Team team = _teamRepository.GetTeamByID(id);
+                competition.Team = team;
+                _competitionRepository.InsertCompetition(competition);
                 _competitionRepository.Save();
+                team.Competitions.Add(competition);
+                _teamRepository.UpdateTeam(team);
+                _teamRepository.Save();
                 return competition;
-            } catch {}
-            return null;
+            } catch (Exception ex) {
+                return null;
+            }
         }
 
         [HttpPut]
