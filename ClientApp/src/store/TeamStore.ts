@@ -2,6 +2,7 @@ import { observable, action, makeObservable } from 'mobx';
 import Agent from '../Agent';
 import CommonStore from './CommonStore';
 import { User } from './UserStore';
+import UserStore from './UserStore';
 
 export interface Team {
     id: number;
@@ -50,7 +51,7 @@ class TeamStore {
                 this.inProgress = false;
                 this.errors = undefined;
                 this.currentTeam = (result.body as Team);
-                console.log(this.currentTeam);
+                UserStore.pullUser();
             }
         ).catch((err) => {
             if (err.status == 404) {
@@ -95,7 +96,6 @@ class TeamStore {
                 this.inProgress = false;
                 this.errors = undefined;
                 this.currentTeam = (result.body as Team);
-                console.log(this.currentTeam);
             }
         ).catch((err) => {
             if (err.status == 404) {
@@ -147,6 +147,15 @@ class TeamStore {
             (result) => {
                 this.currentTeam = (result.body as Team);
             });
+    }
+
+    @action deleteTeam() {
+        if (this.currentTeam) {
+            Agent.requests.del('/team/id/'+this.currentTeam.id).then(
+                (result) => {
+                    UserStore.pullUser();
+                });
+        }
     }
 
     @action forgetTeam() {
