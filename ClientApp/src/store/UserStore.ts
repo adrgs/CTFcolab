@@ -1,5 +1,6 @@
 import { observable, action, makeObservable } from 'mobx';
 import Agent from '../Agent';
+import { Obj } from './AuthStore';
 import CommonStore from './CommonStore';
 import { Team } from './TeamStore';
 
@@ -67,7 +68,7 @@ class UserStore {
     @action updateUser(newUser: User) {
         this.updatingUser = true;
         return Agent.Auth.save(newUser)
-            .then(action((user: any) => { this.currentUser = typeof user == "string" ? decodeToken(user) : user; }))
+            .then(action((user: Obj) => { this.currentUser = typeof user == "string" ? decodeToken(user) : user; }))
             .finally(action(() => { this.updatingUser = false; }))
     }
 

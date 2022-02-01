@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { RouteComponentProps } from 'react-router';
+import { Obj } from '../../store/AuthStore';
+
+interface Props {
+   [key: string]: any;
+   AuthStore: Obj;
+}
 
 @inject("AuthStore", "UserStore")
 @observer
@@ -29,7 +35,7 @@ class RecoverPassword extends React.PureComponent<any> {
       }
    };
 
-   constructor(props: any)
+   constructor(props: Props)
    {
       super(props);
 

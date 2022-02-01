@@ -1,5 +1,6 @@
 import { observable, action, makeObservable } from 'mobx';
 import Agent from '../Agent';
+import { Obj } from './AuthStore';
 import CompetitionStore from './CompetitionStore';
 
 export interface Challenge {
@@ -9,7 +10,11 @@ export interface Challenge {
     flag: string;
     category: string;
     solved: boolean;
-    comments: any[];
+    comments: Comment[];
+}
+
+interface Comment {
+    text: string;
 }
 
 class ChallengeStore {
@@ -64,7 +69,7 @@ class ChallengeStore {
                 if (err.status == 401) {
                     this.reset();
                 }
-                function objToString(obj: any) {
+                function objToString(obj: Obj) {
                     var str = '';
                     for (var p in obj) {
                         if (Object.prototype.hasOwnProperty.call(obj, p)) {

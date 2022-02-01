@@ -1,8 +1,9 @@
 import React from 'react';
 import _uniqueId from 'lodash/uniqueId';
+import { Obj } from '../../store/AuthStore';
 
 interface Props {
-    dictObject: any
+    dictObject: Obj;
     keysWhitelist?: string[]
     keysBlacklist?: string[]
 }
@@ -19,7 +20,7 @@ const DescriptionList = (props: Props) => {
                                 if (typeof val == "object") {
                                     val = JSON.parse(JSON.stringify(val));
                                     if (Array.isArray(val)) {
-                                        val = val.map((el: any) => {
+                                        val = val.map((el: Obj) => {
                                             return el.name;
                                         }).join('\n');
                                     }

@@ -1,5 +1,7 @@
 import { observable, action, makeObservable } from 'mobx';
 import Agent from '../Agent';
+import Challenge from '../components/pages/Challenge/Challenge';
+import { Obj } from './AuthStore';
 import TeamStore from './TeamStore';
 
 export interface Competition {
@@ -8,7 +10,7 @@ export interface Competition {
     description: string;
     startDate: Date;
     endDate: Date;
-    challenges: any[];
+    challenges: Challenge[];
 }
 
 class CompetitionStore {
@@ -60,7 +62,7 @@ class CompetitionStore {
                 if (err.status == 401) {
                     this.reset();
                 }
-                function objToString(obj: any) {
+                function objToString(obj: Obj) {
                     var str = '';
                     for (var p in obj) {
                         if (Object.prototype.hasOwnProperty.call(obj, p)) {

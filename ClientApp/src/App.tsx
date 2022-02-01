@@ -25,16 +25,22 @@ import Competition from './components/pages/Competition/Competition';
 import Challenge from './components/pages/Challenge/Challenge';
 import CreateChallenge from './components/pages/Challenge/CreateChallenge';
 import CreateComment from './components/pages/Comment/CreateComment';
+import { Obj } from './store/AuthStore';
 
 export const LanguageContext = React.createContext({
     language: i18n.language,
     changeLanguage: function(event: MouseEvent<HTMLAnchorElement>){}
 });
 
+interface Props {
+    [key: string]: any;
+    UserStore: Obj;
+}
+
 @inject("AuthStore", "UserStore")
 @observer
 export class App extends React.Component<any, { language: string, changeLanguage: (event: MouseEvent<HTMLAnchorElement>) => void }>  {
-    constructor(props: any) {
+    constructor(props: Props) {
         super(props);
 
         this.props.UserStore.pullUser();

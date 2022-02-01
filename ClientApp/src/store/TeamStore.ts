@@ -3,13 +3,15 @@ import Agent from '../Agent';
 import CommonStore from './CommonStore';
 import { User } from './UserStore';
 import UserStore from './UserStore';
+import Competition from '../components/pages/Competition/Competition';
+import { Obj } from './AuthStore';
 
 export interface Team {
     id: number;
     name: string;
     description: string;
     inviteCode: string;
-    competitions: any[];
+    competitions: Competition[];
     owner: User;
     users: User[];
 }
@@ -60,7 +62,7 @@ class TeamStore {
             if (err.status == 401) {
                 this.reset();
             }
-            function objToString(obj: any) {
+            function objToString(obj: Obj) {
                 var str = '';
                 for (var p in obj) {
                     if (Object.prototype.hasOwnProperty.call(obj, p)) {
@@ -104,7 +106,7 @@ class TeamStore {
             if (err.status == 401) {
                 this.reset();
             }
-            function objToString(obj: any) {
+            function objToString(obj: Obj) {
                 var str = '';
                 for (var p in obj) {
                     if (Object.prototype.hasOwnProperty.call(obj, p)) {

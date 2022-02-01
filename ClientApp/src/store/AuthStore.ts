@@ -3,6 +3,10 @@ import Agent from '../Agent';
 import UserStore, { User } from './UserStore';
 import CommonStore from './CommonStore';
 
+export interface Obj {
+    [key: string]: any;
+}
+
 class AuthStore {
     @observable inProgress: boolean = false;
     @observable errors: string | undefined = undefined;
@@ -85,7 +89,7 @@ class AuthStore {
             if (err.status == 401) {
                 this.reset();
             }
-            function objToString(obj: any) {
+            function objToString(obj: Obj) {
                 var str = '';
                 for (var p in obj) {
                     if (Object.prototype.hasOwnProperty.call(obj, p)) {
@@ -131,7 +135,7 @@ class AuthStore {
                 if (err.status == 401) {
                     this.reset();
                 }
-                function objToString(obj: any) {
+                function objToString(obj: Obj) {
                     var str = '';
                     for (var p in obj) {
                         if (Object.prototype.hasOwnProperty.call(obj, p)) {
@@ -174,7 +178,7 @@ class AuthStore {
             if (err.status == 401) {
                 this.reset();
             }
-            function objToString(obj: any) {
+            function objToString(obj: Obj) {
                 var str = '';
                 for (var p in obj) {
                     if (Object.prototype.hasOwnProperty.call(obj, p)) {
@@ -220,7 +224,7 @@ class AuthStore {
                 if (err.status == 401) {
                     this.reset();
                 }
-                function objToString(obj: any) {
+                function objToString(obj: Obj) {
                     var str = '';
                     for (var p in obj) {
                         if (Object.prototype.hasOwnProperty.call(obj, p)) {
@@ -256,7 +260,7 @@ class AuthStore {
 }
 
 type Error = {
-    response?: { body?: { errors?: any } };
+    response?: { body?: { errors?: Obj } };
     message?: string | undefined;
 }
 

@@ -75,7 +75,7 @@ export default class Challenge extends React.Component<any> {
                             }
                             <h1>Comments</h1>
                             { (currentChallenge && currentChallenge.comments && currentChallenge.comments.length > 0 &&
-                                currentChallenge.comments.map((comment: any) => {
+                                currentChallenge.comments.map((comment: Comment) => {
                                     return (<div key={_uniqueId('comment')} className="flex flex-col">
                                         <DescriptionList dictObject={comment} keysBlacklist={['id', 'comments', 'challenge', 'comments']} />
                                     </div>)

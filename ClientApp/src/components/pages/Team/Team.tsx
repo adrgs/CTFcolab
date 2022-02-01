@@ -3,6 +3,7 @@ import * as React from 'react';
 import Button from "../../misc/Button";
 import DescriptionList from "../../misc/DescriptionList";
 import _uniqueId from 'lodash/uniqueId';
+import { Obj } from "../../../store/AuthStore";
 
 @inject("TeamStore", "UserStore")
 @observer
@@ -57,7 +58,7 @@ export default class Team extends React.Component<any> {
                             }
                             <h1>Competitions</h1>
                             { (currentTeam && currentTeam.competitions && currentTeam.competitions.length > 0 &&
-                                currentTeam.competitions.map((competition: any) => {
+                                currentTeam.competitions.map((competition: Obj) => {
                                     return (<div key={_uniqueId('competition')} className="flex flex-col">
                                         <Button onClick={this.goToCompetition} label="View competition" color="blue" value={competition.id} />
                                         <DescriptionList dictObject={competition} keysBlacklist={['id', 'challenges']} />
