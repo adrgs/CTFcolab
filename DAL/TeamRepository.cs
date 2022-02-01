@@ -39,15 +39,6 @@ namespace CTFcolab.DAL
         {
             Team Team = _context.Set<Team>().Include("Users").Include("Owner").Include("Competitions").SingleOrDefault(team => team.Id == TeamID);
             if (Team != null) {
-                foreach (User user in Team.Users) {
-                    foreach (Team team in user.Teams)
-                    {
-                        if (team.Id == Team.Id) {
-                            user.Teams.Remove(team);
-                        }
-                    }
-                    _context.Entry(user).State = EntityState.Modified;
-                }
                 _context.Set<Team>().Remove(Team);
             }
         }
