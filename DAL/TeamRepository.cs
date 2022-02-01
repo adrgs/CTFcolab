@@ -15,7 +15,7 @@ namespace CTFcolab.DAL
         }
         public IEnumerable<Team> GetTeams()
         {
-            return _context.Set<Team>().ToList();
+            return _context.Set<Team>().Include("Users").Include("Owner").Include("Competitions").ToList();
         }
         public Team GetTeamByID(int id)
         {
